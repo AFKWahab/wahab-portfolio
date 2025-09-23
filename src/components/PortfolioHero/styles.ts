@@ -1,10 +1,9 @@
 import { SxProps, Theme } from '@mui/material/styles';
 import { CSSProperties } from 'react';
 
-// Main container styles
 export const containerStyles: SxProps<Theme> = {
   minHeight: '100vh',
-  background: 'linear-gradient(135deg, #0f172a 0%, #581c87 50%, #0f172a 100%)',
+  background: 'linear-gradient(135deg, #0f0f23 0%, #1a1a2e 25%, #16213e 50%, #1a1a2e 75%, #0f0f23 100%)',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
@@ -20,28 +19,24 @@ export const gridContainerStyles: SxProps<Theme> = {
   alignItems: 'center',
 };
 
-// SVG and animation styles
 export const svgContainerStyles: SxProps<Theme> = {
   display: 'flex',
   justifyContent: 'center',
   position: 'relative',
 };
 
-// SVG styles need to be CSSProperties for native SVG elements
 export const svgStyles: CSSProperties = {
   filter: 'drop-shadow(0 25px 50px rgba(0, 0, 0, 0.3))',
   width: 400,
   height: 350,
 };
 
-// Floating particles container
 export const particlesContainerStyles: SxProps<Theme> = {
   position: 'absolute',
   inset: 0,
   pointerEvents: 'none',
 };
 
-// Content section styles
 export const contentContainerStyles: SxProps<Theme> = {
   color: 'white',
   display: 'flex',
@@ -54,19 +49,20 @@ export const titleContainerStyles: SxProps<Theme> = {
   mb: 2,
 };
 
-// Dynamic title styles with animation
-export const getTitleStyles = (showText: boolean): SxProps<Theme> => ({
-  background: 'linear-gradient(45deg, #a855f7 30%, #ec4899 50%, #fbbf24 90%)',
+export const getTitleStyles = (showText: boolean, faceComplete: boolean): SxProps<Theme> => ({
+  background: 'linear-gradient(45deg, #6366f1 20%, #8b5cf6 40%, #a855f7 60%, #c084fc 80%)',
   backgroundClip: 'text',
   WebkitBackgroundClip: 'text',
   WebkitTextFillColor: 'transparent',
   textAlign: { xs: 'center', lg: 'left' },
-  transform: showText ? 'translateX(0)' : 'translateX(-100%)',
+  transform: showText 
+    ? 'translateX(0) translateY(0)' 
+    : 'translateX(-50%) translateY(-20px)',
   opacity: showText ? 1 : 0,
-  transition: 'all 1s ease-out',
+  transition: 'all 1.2s cubic-bezier(0.22, 1, 0.36, 1)', 
+  filter: showText ? 'drop-shadow(0 0 20px rgba(139, 92, 246, 0.3))' : 'none',
 });
 
-// Dynamic description container styles
 export const getDescriptionStyles = (showDescription: boolean): SxProps<Theme> => ({
   display: 'flex',
   flexDirection: 'column',
@@ -88,27 +84,6 @@ export const descriptionStyles: SxProps<Theme> = {
   mb: 3,
 };
 
-// Skills container
-export const skillsContainerStyles: SxProps<Theme> = {
-  display: 'flex',
-  flexWrap: 'wrap',
-  gap: 1.5,
-  justifyContent: { xs: 'center', lg: 'flex-start' },
-  pt: 2,
-};
-
-// Dynamic skill chip styles
-export const getSkillChipStyles = (
-  showDescription: boolean,
-  index: number
-): SxProps<Theme> => ({
-  transform: showDescription ? 'translateY(0) scale(1)' : 'translateY(16px) scale(0.95)',
-  opacity: showDescription ? 1 : 0,
-  transition: 'all 0.5s ease-out',
-  transitionDelay: `${200 + index * 100}ms`,
-});
-
-// COMBINED buttons container with animation - This is what was missing!
 export const getButtonsContainerStyles = (showDescription: boolean): SxProps<Theme> => ({
   display: 'flex',
   gap: 2,
@@ -118,57 +93,72 @@ export const getButtonsContainerStyles = (showDescription: boolean): SxProps<The
   transform: showDescription ? 'translateY(0)' : 'translateY(32px)',
   opacity: showDescription ? 1 : 0,
   transition: 'all 0.7s ease-out',
-  transitionDelay: '800ms',
+  transitionDelay: '1000ms',
 });
 
-// Primary button styles
 export const primaryButtonStyles: SxProps<Theme> = {
-  background: 'linear-gradient(45deg, #8b5cf6 30%, #ec4899 90%)',
+  background: 'linear-gradient(45deg, #6366f1 30%, #8b5cf6 90%)',
   color: 'white',
-  boxShadow: '0 4px 15px rgba(139, 92, 246, 0.3)',
+  boxShadow: '0 4px 15px rgba(99, 102, 241, 0.3)',
   '&:hover': {
-    boxShadow: '0 4px 20px rgba(139, 92, 246, 0.4)',
-    background: 'linear-gradient(45deg, #7c3aed 30%, #db2777 90%)',
+    boxShadow: '0 4px 25px rgba(99, 102, 241, 0.5)',
+    background: 'linear-gradient(45deg, #4f46e5 30%, #7c3aed 90%)',
+    transform: 'scale(1.05)',
   },
 };
 
-// Secondary button styles
 export const secondaryButtonStyles: SxProps<Theme> = {
-  border: '1px solid rgba(139, 92, 246, 0.5)',
+  border: '1px solid rgba(99, 102, 241, 0.5)',
   color: 'white',
   '&:hover': {
-    backgroundColor: 'rgba(139, 92, 246, 0.1)',
-    border: '1px solid rgba(139, 92, 246, 0.7)',
+    backgroundColor: 'rgba(99, 102, 241, 0.1)',
+    border: '1px solid rgba(99, 102, 241, 0.7)',
+    boxShadow: '0 0 15px rgba(99, 102, 241, 0.2)',
   },
 };
 
-// Particle animation styles
 export const getParticleStyles = (
   showText: boolean,
   index: number
 ): CSSProperties => ({
   position: 'absolute',
-  width: '4px',
-  height: '4px',
-  backgroundColor: '#a855f7',
+  width: showText ? '6px' : '3px',
+  height: showText ? '6px' : '3px',
+  backgroundColor: '#6366f1',
   borderRadius: '50%',
   left: `${15 + index * 8}%`,
   top: `${25 + (index % 4) * 15}%`,
-  opacity: showText ? 1 : 0.3,
-  animationDelay: `${index * 0.2}s`,
-  animationDuration: `${1.5 + index * 0.2}s`,
-  transform: showText ? `translateX(${index * 10}px)` : 'translateX(0)',
-  transition: 'all 1s ease-out',
+  opacity: showText ? 1 : 0.2,
+  animationDelay: `${index * 0.1}s`,
+  animationDuration: `${1.2 + index * 0.15}s`,
+  transform: showText ? `translateX(${index * 15}px) translateY(${(index % 2) * -10}px)` : 'translate(0)',
+  transition: 'all 1.5s cubic-bezier(0.22, 1, 0.36, 1)',
+  boxShadow: showText ? '0 0 10px rgba(99, 102, 241, 0.6)' : 'none',
 });
 
 export const getWindTrailStyles = (index: number): CSSProperties => ({
   position: 'absolute',
-  width: '8px',
-  height: '2px',
-  background: 'linear-gradient(90deg, #a855f7 0%, transparent 100%)',
+  width: '12px',
+  height: '3px',
+  background: 'linear-gradient(90deg, #6366f1 0%, #8b5cf6 50%, transparent 100%)',
   borderRadius: '2px',
-  left: `${40 + index * 5}%`,
-  top: `${35 + (index % 3) * 10}%`,
-  animationDelay: `${index * 0.15}s`,
-  animationDuration: '2s',
+  left: `${35 + index * 6}%`,
+  top: `${30 + (index % 4) * 12}%`,
+  animationDelay: `${index * 0.1}s`,
+  animationDuration: '1.8s',
+  boxShadow: '0 0 8px rgba(99, 102, 241, 0.4)',
+});
+
+export const getWindBurstStyles = (index: number): CSSProperties => ({
+  position: 'absolute',
+  width: '2px',
+  height: '20px',
+  background: 'linear-gradient(180deg, #6366f1 0%, transparent 100%)',
+  borderRadius: '1px',
+  left: `${30 + index * 4}%`,
+  top: `${40 + (index % 2) * 20}%`,
+  animationDelay: `${index * 0.05}s`,
+  animationDuration: '0.8s',
+  opacity: 0.7,
+  transform: `rotate(${index * 15}deg)`,
 });
