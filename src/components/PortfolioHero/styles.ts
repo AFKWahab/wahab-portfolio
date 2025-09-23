@@ -1,4 +1,5 @@
 import { SxProps, Theme } from '@mui/material/styles';
+import { CSSProperties } from 'react';
 
 // Main container styles
 export const containerStyles: SxProps<Theme> = {
@@ -26,10 +27,11 @@ export const svgContainerStyles: SxProps<Theme> = {
   position: 'relative',
 };
 
-export const svgStyles: SxProps<Theme> = {
+// SVG styles need to be CSSProperties for native SVG elements
+export const svgStyles: CSSProperties = {
   filter: 'drop-shadow(0 25px 50px rgba(0, 0, 0, 0.3))',
-  width: { xs: 300, md: 400 },
-  height: { xs: 262, md: 350 },
+  width: 400,
+  height: 350,
 };
 
 // Floating particles container
@@ -106,17 +108,13 @@ export const getSkillChipStyles = (
   transitionDelay: `${200 + index * 100}ms`,
 });
 
-// Buttons container
-export const buttonsContainerStyles: SxProps<Theme> = {
+// COMBINED buttons container with animation - This is what was missing!
+export const getButtonsContainerStyles = (showDescription: boolean): SxProps<Theme> => ({
   display: 'flex',
   gap: 2,
   pt: 3,
   justifyContent: { xs: 'center', lg: 'flex-start' },
   flexDirection: { xs: 'column', sm: 'row' },
-};
-
-// Dynamic buttons styles
-export const getButtonsStyles = (showDescription: boolean): SxProps<Theme> => ({
   transform: showDescription ? 'translateY(0)' : 'translateY(32px)',
   opacity: showDescription ? 1 : 0,
   transition: 'all 0.7s ease-out',
@@ -148,7 +146,7 @@ export const secondaryButtonStyles: SxProps<Theme> = {
 export const getParticleStyles = (
   showText: boolean,
   index: number
-): React.CSSProperties => ({
+): CSSProperties => ({
   position: 'absolute',
   width: '4px',
   height: '4px',
@@ -163,7 +161,7 @@ export const getParticleStyles = (
   transition: 'all 1s ease-out',
 });
 
-export const getWindTrailStyles = (index: number): React.CSSProperties => ({
+export const getWindTrailStyles = (index: number): CSSProperties => ({
   position: 'absolute',
   width: '8px',
   height: '2px',

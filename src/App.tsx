@@ -1,13 +1,14 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import PortfolioFaceOutline from './PortfolioFaceOutline';
+import { ThemeProvider, CssBaseline } from '@mui/material';
+import { theme } from './theme/theme';
+import { PortfolioHero } from './components';
 
 function App() {
   return (
-    <div className="App">
-      <PortfolioFaceOutline />
-    </div>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <PortfolioHero />
+    </ThemeProvider>
   );
 }
 
