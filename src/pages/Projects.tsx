@@ -30,7 +30,7 @@ const Projects: React.FC = () => {
             }
           }}
         >
-          Back to Home
+          back to home
         </Button>
 
         <Box sx={{ textAlign: 'center', mb: 6 }}>

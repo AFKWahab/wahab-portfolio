@@ -1,6 +1,6 @@
 // components/ProjectSectionRenderer/ProjectSectionRenderer.tsx
 import React from 'react';
-import { Box, Typography, Card, CardContent, Divider, Grid, Chip } from '@mui/material';
+import { Box, Typography, Card, CardContent, Grid, Chip } from '@mui/material';
 import { ProjectSection, ProjectImage, Metric } from '../../types/project';
 import MathRenderer from '../MathRenderer/MathRenderer';
 import ComparisonTable from '../ComparisonTable/ComparisonTable';
@@ -14,7 +14,7 @@ interface ProjectSectionRendererProps {
 }
 
 const ProjectSectionRenderer: React.FC<ProjectSectionRendererProps> = ({ section }) => {
-  const { title, content, type } = section;
+  const { title, content } = section;
 
   const renderImage = (image: ProjectImage) => (
     <Box key={image.id} sx={{ mb: 3 }}>
@@ -51,46 +51,86 @@ const ProjectSectionRenderer: React.FC<ProjectSectionRendererProps> = ({ section
   );
 
   const renderMetrics = (metrics: Metric[]) => (
-    <Grid container spacing={2} sx={{ my: 2 }}>
-      {metrics.map((metric, index) => (
-        <Grid sx={{ xs: 12, sm: 6, md: 4 }} key={index}>
-          <Card
-            sx={{
-              background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(139, 92, 246, 0.05) 100%)',
-              border: '1px solid rgba(99, 102, 241, 0.1)',
-              borderRadius: 2,
-            }}
-          >
-            <CardContent sx={{ p: 2 }}>
-              <Typography variant="h6" sx={{ color: '#6366f1', fontWeight: 600, mb: 1 }}>
-                {metric.value}
-              </Typography>
-              <Typography variant="body2" sx={{ color: 'rgba(255, 255, 255, 0.9)', fontWeight: 500 }}>
-                {metric.name}
-              </Typography>
-              {metric.description && (
-                <Typography variant="caption" sx={{ color: 'rgba(255, 255, 255, 0.6)', mt: 1 }}>
-                  {metric.description}
-                </Typography>
-              )}
-              {metric.comparison && (
-                <Box sx={{ mt: 1 }}>
-                  <Chip
-                    label={`+${metric.comparison.improvement} vs ${metric.comparison.baseline}`}
-                    size="small"
-                    sx={{
-                      backgroundColor: 'rgba(34, 197, 94, 0.2)',
-                      color: '#22c55e',
-                      fontSize: '0.75rem'
+    <Box sx={{ my: 4, display: 'flex', justifyContent: 'center' }}>
+      <Box sx={{ width: '100%', maxWidth: '1200px' }}>
+        <Grid container spacing={3} sx={{ justifyContent: 'center' }}>
+          {metrics.map((metric, index) => (
+            <Grid key={index} sx={{ xs: 12, sm: 6, lg: 3 }}>
+              <Card
+                sx={{
+                  background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(139, 92, 246, 0.05) 100%)',
+                  border: '1px solid rgba(99, 102, 241, 0.1)',
+                  borderRadius: 2,
+                  height: '180px', // Increased height to prevent cutoff
+                  display: 'flex',
+                  flexDirection: 'column'
+                }}
+              >
+                <CardContent sx={{ 
+                  p: 3, 
+                  flex: 1, 
+                  display: 'flex', 
+                  flexDirection: 'column', 
+                  justifyContent: 'center', // Center content vertically
+                  alignItems: 'center', // Center content horizontally
+                  textAlign: 'center'
+                }}>
+                  <Typography 
+                    variant="h4" 
+                    sx={{ 
+                      color: '#6366f1', 
+                      fontWeight: 700, 
+                      mb: 1, 
+                      fontSize: '2.2rem', // Slightly larger
+                      lineHeight: 1.1
                     }}
-                  />
-                </Box>
-              )}
-            </CardContent>
-          </Card>
+                  >
+                    {metric.value}
+                  </Typography>
+                  <Typography 
+                    variant="body1" 
+                    sx={{ 
+                      color: 'rgba(255, 255, 255, 0.9)', 
+                      fontWeight: 600, 
+                      mb: 1,
+                      fontSize: '0.95rem',
+                      lineHeight: 1.2
+                    }}
+                  >
+                    {metric.name}
+                  </Typography>
+                  {metric.description && (
+                    <Typography 
+                      variant="caption" 
+                      sx={{ 
+                        color: 'rgba(255, 255, 255, 0.6)', 
+                        fontSize: '0.75rem',
+                        mb: metric.comparison ? 1 : 0,
+                        lineHeight: 1.3
+                      }}
+                    >
+                      {metric.description}
+                    </Typography>
+                  )}
+                  {metric.comparison && (
+                    <Chip
+                      label={`+${metric.comparison.improvement} vs ${metric.comparison.baseline}`}
+                      size="small"
+                      sx={{
+                        backgroundColor: 'rgba(34, 197, 94, 0.2)',
+                        color: '#22c55e',
+                        fontSize: '0.65rem',
+                        height: '20px'
+                      }}
+                    />
+                  )}
+                </CardContent>
+              </Card>
+            </Grid>
+          ))}
         </Grid>
-      ))}
-    </Grid>
+      </Box>
+    </Box>
   );
 
   const renderCustomVisualizations = (visualizations: any[]) => {
@@ -98,40 +138,55 @@ const ProjectSectionRenderer: React.FC<ProjectSectionRendererProps> = ({ section
       switch (viz.type) {
         case 'comparison-table':
           return (
-            <ComparisonTable
-              key={`viz-${index}`}
-              title={viz.data.title}
-              items={viz.data.items}
-              caption={viz.data.caption}
-            />
+            <Box key={`viz-${index}`} sx={{ my: 4, width: '100%' }}>
+              <ComparisonTable
+                title={viz.data.title}
+                items={viz.data.items}
+                caption={viz.data.caption}
+              />
+            </Box>
           );
         
         case 'training-chart':
           return (
-            <Box key={`viz-${index}`} sx={{ my: 4 }}>
+            <Box key={`viz-${index}`} sx={{ my: 4, width: '100%' }}>
               <Typography
                 variant="h4"
                 sx={{
                   color: 'white',
-                  fontSize: '1.3rem',
+                  fontSize: '1.4rem',
                   fontWeight: 600,
-                  mb: 3,
+                  mb: 4,
                   textAlign: 'center'
                 }}
               >
                 {viz.data.title}
               </Typography>
-              <Grid container spacing={3}>
+              <Box 
+                sx={{ 
+                  display: 'flex', 
+                  flexDirection: { xs: 'column', lg: 'row' },
+                  gap: 3,
+                  width: '100%'
+                }}
+              >
                 {viz.data.charts.map((chart: any, chartIndex: number) => (
-                  <Grid sx={{ xs: 12, md: 6 }} key={chartIndex}>
+                  <Box 
+                    key={chartIndex} 
+                    sx={{ 
+                      flex: 1,
+                      minWidth: 0, // Important for flex items with content that might overflow
+                      width: { xs: '100%', lg: '50%' }
+                    }}
+                  >
                     <DataChart
                       title={chart.title}
                       dataPath={chart.dataPath}
                       lines={chart.lines}
                     />
-                  </Grid>
+                  </Box>
                 ))}
-              </Grid>
+              </Box>
               {viz.data.caption && (
                 <Typography
                   variant="caption"
@@ -139,9 +194,11 @@ const ProjectSectionRenderer: React.FC<ProjectSectionRendererProps> = ({ section
                     display: 'block',
                     textAlign: 'center',
                     color: 'rgba(255, 255, 255, 0.7)',
-                    mt: 2,
-                    fontSize: '0.9rem',
-                    fontStyle: 'italic'
+                    mt: 3,
+                    fontSize: '0.95rem',
+                    fontStyle: 'italic',
+                    maxWidth: '900px',
+                    mx: 'auto'
                   }}
                 >
                   {viz.data.caption}
@@ -152,12 +209,13 @@ const ProjectSectionRenderer: React.FC<ProjectSectionRendererProps> = ({ section
         
         case 'histogram':
           return (
-            <HistogramChart
-              key={`viz-${index}`}
-              title={viz.data.title}
-              dataPath={viz.data.dataPath}
-              caption={viz.data.caption}
-            />
+            <Box key={`viz-${index}`} sx={{ my: 4, width: '100%' }}>
+              <HistogramChart
+                title={viz.data.title}
+                dataPath={viz.data.dataPath}
+                caption={viz.data.caption}
+              />
+            </Box>
           );
         
         default:
@@ -260,7 +318,7 @@ const ProjectSectionRenderer: React.FC<ProjectSectionRendererProps> = ({ section
 
           {/* Custom Visualizations */}
           {(content as any).customVisualizations && (content as any).customVisualizations.length > 0 && (
-            <Box sx={{ my: 3 }}>
+            <Box sx={{ my: 3, width: '100%' }}>
               {renderCustomVisualizations((content as any).customVisualizations)}
             </Box>
           )}

@@ -1,7 +1,7 @@
 // components/HistogramChart/HistogramChart.tsx
 import React, { useEffect, useState } from 'react';
 import { Box, Typography } from '@mui/material';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Legend, ResponsiveContainer } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Legend, ResponsiveContainer, Tooltip } from 'recharts';
 
 interface HistogramData {
   hue: number;
@@ -17,6 +17,7 @@ interface HistogramChartProps {
 const HistogramChart: React.FC<HistogramChartProps> = ({ title, dataPath, caption }) => {
   const [data, setData] = useState<HistogramData[]>([]);
   const [loading, setLoading] = useState(true);
+  const [hiddenLines, setHiddenLines] = useState<Set<string>>(new Set());
 
   const lineConfigs = [
     { key: 's1', name: 'Sample 1', color: '#ef4444' },
@@ -59,6 +60,85 @@ const HistogramChart: React.FC<HistogramChartProps> = ({ title, dataPath, captio
     loadData();
   }, [dataPath]);
 
+  const handleLegendClick = (dataKey: string) => {
+    const newHiddenLines = new Set(hiddenLines);
+    if (hiddenLines.has(dataKey)) {
+      newHiddenLines.delete(dataKey);
+    } else {
+      newHiddenLines.add(dataKey);
+    }
+    setHiddenLines(newHiddenLines);
+  };
+
+  const CustomTooltip = ({ active, payload, label }: any) => {
+    if (active && payload && payload.length) {
+      return (
+        <Box
+          sx={{
+            background: 'rgba(0, 0, 0, 0.8)',
+            border: '1px solid rgba(99, 102, 241, 0.3)',
+            borderRadius: 2,
+            p: 2,
+            color: 'white'
+          }}
+        >
+          <Typography sx={{ fontSize: '0.9rem', mb: 1 }}>
+            Hue: {parseFloat(label).toFixed(2)}
+          </Typography>
+          {payload.map((entry: any, index: number) => (
+            <Typography
+              key={index}
+              sx={{
+                color: entry.color,
+                fontSize: '0.8rem'
+              }}
+            >
+              {entry.name}: {entry.value}
+            </Typography>
+          ))}
+        </Box>
+      );
+    }
+    return null;
+  };
+
+  const CustomLegend = (props: any) => {
+    const { payload } = props;
+    return (
+      <Box sx={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: 2, mt: 2 }}>
+        {payload.map((entry: any, index: number) => (
+          <Box
+            key={index}
+            onClick={() => handleLegendClick(entry.dataKey)}
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 1,
+              cursor: 'pointer',
+              opacity: hiddenLines.has(entry.dataKey) ? 0.4 : 1,
+              transition: 'opacity 0.2s',
+              '&:hover': {
+                opacity: hiddenLines.has(entry.dataKey) ? 0.6 : 0.8
+              }
+            }}
+          >
+            <Box
+              sx={{
+                width: 16,
+                height: 3,
+                backgroundColor: entry.color,
+                borderRadius: 1
+              }}
+            />
+            <Typography sx={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '0.9rem' }}>
+              {entry.value}
+            </Typography>
+          </Box>
+        ))}
+      </Box>
+    );
+  };
+
   if (loading) {
     return (
       <Box sx={{ textAlign: 'center', py: 4 }}>
@@ -93,26 +173,39 @@ const HistogramChart: React.FC<HistogramChartProps> = ({ title, dataPath, captio
           p: 3
         }}
       >
-        <ResponsiveContainer width="100%" height={400}>
+        <ResponsiveContainer width="100%" height={500}>
           <LineChart
             data={data}
-            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+            margin={{ top: 20, right: 30, left: 20, bottom: 60 }}
           >
             <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.1)" />
             <XAxis 
               dataKey="hue" 
               stroke="rgba(255, 255, 255, 0.8)"
               fontSize={12}
-              label={{ value: 'Hue', position: 'insideBottom', offset: -5, style: { textAnchor: 'middle', fill: 'rgba(255, 255, 255, 0.8)' } }}
+              domain={[0, 1]}
+              type="number"
+              ticks={[0, 0.2, 0.4, 0.6, 0.8, 1.0]}
+              tickFormatter={(value) => value.toFixed(1)}
+              label={{ 
+                value: 'Hue', 
+                position: 'insideBottom', 
+                offset: -10, 
+                style: { textAnchor: 'middle', fill: 'rgba(255, 255, 255, 0.8)' } 
+              }}
             />
             <YAxis 
               stroke="rgba(255, 255, 255, 0.8)"
               fontSize={12}
-              label={{ value: 'Pixels', angle: -90, position: 'insideLeft', style: { textAnchor: 'middle', fill: 'rgba(255, 255, 255, 0.8)' } }}
+              label={{ 
+                value: 'Pixels', 
+                angle: -90, 
+                position: 'insideLeft', 
+                style: { textAnchor: 'middle', fill: 'rgba(255, 255, 255, 0.8)' } 
+              }}
             />
-            <Legend 
-              wrapperStyle={{ color: 'rgba(255, 255, 255, 0.8)' }}
-            />
+            <Tooltip content={<CustomTooltip />} />
+            <Legend content={<CustomLegend />} />
             
             {lineConfigs.map((lineConfig) => (
               <Line
@@ -124,6 +217,7 @@ const HistogramChart: React.FC<HistogramChartProps> = ({ title, dataPath, captio
                 dot={false}
                 name={lineConfig.name}
                 connectNulls={false}
+                hide={hiddenLines.has(lineConfig.key)}
               />
             ))}
           </LineChart>

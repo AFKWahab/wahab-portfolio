@@ -7,7 +7,7 @@ export const projects: Project[] = [
     title: 'VAE-GAN for Grayscale Image Colorization',
     shortDescription: 'A variational autoencoder (VAE) and generative adversarial network (GAN) hybrid model for colorizing grayscale images.',
     fullDescription: 'Advanced machine learning architecture combining VAEs and GANs with Wasserstein loss and skip connections for realistic image colorization.',
-    abstract: 'This work aims to advance colorization of grayscale images by improving realism, diversity and colorfulness. We train a new model that combines a Variational Auto-Encoder with a Generative Adversarial Network, implementing skip connections and Wasserstein loss to improve realism and training stability. We show that enhancing a base model with Wasserstein loss and skip-connections significantly improves training stability and visual fidelity, resulting in a 23.7% higher Inception Score.',
+    abstract: 'This work was a project I created with a study partner for our Deep Learning for Visual Recognition course. We received a 100/100 mark, and the best project of the semester. The work aims to advance colorization of grayscale images by improving realism, diversity and colorfulness. We train a new model that combines a Variational Auto-Encoder with a Generative Adversarial Network, implementing skip connections and Wasserstein loss to improve realism and training stability. We show that enhancing a base model with Wasserstein loss and skip-connections significantly improves training stability and visual fidelity, resulting in a 23.7% higher Inception Score.',
     githubUrl: 'https://github.com/adamuser/vae-gan',
     startDate: '2024-01-15',
     endDate: '2024-06-30',
@@ -95,7 +95,7 @@ export const projects: Project[] = [
           images: [
             {
               id: 'architecture',
-              src: '/data/images/vae-gan/model_architecture.drawio.png',
+              src: '/images/vae-gan/model_architecture.drawio.png',
               alt: 'VAE-GAN Architecture Diagram',
               caption: 'Complete model architecture showing VAE encoder-decoder with skip connections and PatchGAN discriminator'
             }
@@ -164,38 +164,38 @@ export const projects: Project[] = [
                 items: [
                   {
                     id: '16',
-                    originalImage: '/data/images/vae-gan/noteworthyExamples/original_16.png',
-                    generatedImage: '/data/images/vae-gan/noteworthyExamples/generated_16.png',
+                    originalImage: '/images/vae-gan/noteworthyExamples/original_16.png',
+                    generatedImage: '/images/vae-gan/noteworthyExamples/generated_16.png',
                     percentage: '17.6%'
                   },
                   {
                     id: '17',
-                    originalImage: '/data/images/vae-gan/noteworthyExamples/original_17.png',
-                    generatedImage: '/data/images/vae-gan/noteworthyExamples/generated_17.png',
+                    originalImage: '/images/vae-gan/noteworthyExamples/original_17.png',
+                    generatedImage: '/images/vae-gan/noteworthyExamples/generated_17.png',
                     percentage: '64.7%'
                   },
                   {
                     id: '14',
-                    originalImage: '/data/images/vae-gan/noteworthyExamples/original_14.png',
-                    generatedImage: '/data/images/vae-gan/noteworthyExamples/generated_14.png',
+                    originalImage: '/images/vae-gan/noteworthyExamples/original_14.png',
+                    generatedImage: '/images/vae-gan/noteworthyExamples/generated_14.png',
                     percentage: '47.1%'
                   },
                   {
                     id: '37',
-                    originalImage: '/data/images/vae-gan/noteworthyExamples/original_37.png',
-                    generatedImage: '/data/images/vae-gan/noteworthyExamples/generated_37.png',
+                    originalImage: '/images/vae-gan/noteworthyExamples/original_37.png',
+                    generatedImage: '/images/vae-gan/noteworthyExamples/generated_37.png',
                     percentage: '52.9%'
                   },
                   {
                     id: '39',
-                    originalImage: '/data/images/vae-gan/noteworthyExamples/original_39.png',
-                    generatedImage: '/data/images/vae-gan/noteworthyExamples/generated_39.png',
+                    originalImage: '/images/vae-gan/noteworthyExamples/original_39.png',
+                    generatedImage: '/images/vae-gan/noteworthyExamples/generated_39.png',
                     percentage: '23.5%'
                   },
                   {
                     id: '47',
-                    originalImage: '/data/images/vae-gan/noteworthyExamples/original_47.png',
-                    generatedImage: '/data/images/vae-gan/noteworthyExamples/generated_47.png',
+                    originalImage: '/images/vae-gan/noteworthyExamples/original_47.png',
+                    generatedImage: '/images/vae-gan/noteworthyExamples/generated_47.png',
                     percentage: '29.4%'
                   }
                 ],
@@ -211,8 +211,8 @@ export const projects: Project[] = [
                     title: 'Enhanced Model (Ours)',
                     dataPath: '/data/vae_gan/training_data.dat',
                     lines: [
-                      { key: 'AVG_IS', name: 'Inception Score', color: '#000000', strokeWidth: 3 },
-                      { key: 'Val_L1_loss', name: 'Reconstruction Loss', color: '#000000', strokeDasharray: '5,5', strokeWidth: 3 },
+                      { key: 'AVG_IS', name: 'Inception Score', color: '#ff0000ff', strokeWidth: 3 },
+                      { key: 'Val_L1_loss', name: 'Reconstruction Loss', color: '#33ff00ff', strokeDasharray: '5,5', strokeWidth: 3 },
                       { key: 'D_loss', name: 'Discriminator Loss', color: '#f97316' },
                       { key: 'G_loss', name: 'Generator Loss', color: '#14b8a6' }
                     ]
@@ -221,8 +221,8 @@ export const projects: Project[] = [
                     title: 'Basic VAE-GAN Model',
                     dataPath: '/data/vae_gan/training_data_basic.dat',
                     lines: [
-                      { key: 'AVG_IS', name: 'Inception Score', color: '#000000', strokeWidth: 3 },
-                      { key: 'Val_L1_loss', name: 'Reconstruction Loss', color: '#000000', strokeDasharray: '5,5', strokeWidth: 3 },
+                      { key: 'AVG_IS', name: 'Inception Score', color: '#ff0000ff', strokeWidth: 3 },
+                      { key: 'Val_L1_loss', name: 'Reconstruction Loss', color: '#33ff00ff', strokeDasharray: '5,5', strokeWidth: 3 },
                       { key: 'D_loss', name: 'Discriminator Loss', color: '#f97316' },
                       { key: 'G_loss', name: 'Generator Loss', color: '#14b8a6' }
                     ]
