@@ -9,6 +9,8 @@ export interface Project {
   endDate?: string;
   keyFeatures: string[];
   status: 'completed' | 'ongoing' | 'planned';
+  
+  // New detailed content fields
   abstract?: string;
   sections?: ProjectSection[];
   tags?: string[];
@@ -24,12 +26,26 @@ export interface ProjectSection {
 }
 
 export interface SectionContent {
+  // Text content with optional math
   text?: string;
+  
+  // Math equations (LaTeX strings)
   equations?: MathEquation[];
+  
+  // Images with captions
   images?: ProjectImage[];
+  
+  // Code blocks
   code?: CodeBlock[];
+  
+  // Results/metrics
   metrics?: Metric[];
+  
+  // Sub-sections for complex sections
   subsections?: SubSection[];
+  
+  // Custom visualizations (for LaTeX-generated content)
+  customVisualizations?: CustomVisualization[];
 }
 
 export interface MathEquation {
@@ -37,12 +53,12 @@ export interface MathEquation {
   latex: string;
   label?: string;
   description?: string;
-  displayMode?: boolean;
+  displayMode?: boolean; // true for block equations, false for inline
 }
 
 export interface ProjectImage {
   id: string;
-  src: string;
+  src: string; // path to image
   alt: string;
   caption?: string;
   width?: string;
@@ -72,4 +88,9 @@ export interface SubSection {
   content: string;
   math?: MathEquation[];
   images?: ProjectImage[];
+}
+
+export interface CustomVisualization {
+  type: 'comparison-table' | 'training-chart' | 'histogram' | 'custom';
+  data: any; // Flexible data structure for different visualization types
 }
