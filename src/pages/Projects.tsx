@@ -46,7 +46,7 @@ const Projects: React.FC = () => {
               mb: 2,
             }}
           >
-            My Projects
+            my projects
           </Typography>
           <Typography
             sx={{
@@ -57,13 +57,13 @@ const Projects: React.FC = () => {
               lineHeight: 1.6,
             }}
           >
-            A collection of projects I've built over the years. Each one taught me something new.
+            a collection of projects i've built over the years. each one taught me something new. some of them are still ongoing.
           </Typography>
         </Box>
 
-        <Grid container spacing={4}>
+        <Grid container spacing={4} sx={{ alignItems: 'stretch' }}>
           {projects.map((project) => (
-            <Grid key={project.id} sx={{ xs: 12, md: 6, lg: 4 }}>
+            <Grid key={project.id} sx={{ xs: 12, md: 6 }}>
               <ProjectCard project={project} />
             </Grid>
           ))}

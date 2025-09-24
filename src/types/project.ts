@@ -7,6 +7,7 @@ export interface Project {
   startDate: string;
   endDate?: string;
   keyFeatures: string[];
+  status: 'completed' | 'ongoing' | 'planned';
 }
 
 export interface ProjectCategory {

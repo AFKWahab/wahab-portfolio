@@ -2,13 +2,14 @@ import { Project } from '../types/project';
 
 export const projects: Project[] = [
   {
-    id: 'ecommerce-platform',
-    title: 'E-Commerce Platform',
-    shortDescription: 'Modern e-commerce solution with React, Node.js, and Stripe integration',
-    fullDescription: 'A comprehensive e-commerce platform built from scratch featuring user authentication, product management, shopping cart functionality, and secure payment processing. The project showcases modern web development practices with a focus on user experience and performance.',
-    githubUrl: 'https://github.com/adamuser/ecommerce-platform',
+    id: 'vae-gan',
+    title: 'vae-gan for greyscale image colorization',
+    shortDescription: 'A variational autoencoder (VAE) and generative adversarial network (GAN) hybrid model for colorizing greyscale images.',
+    fullDescription: 'This project implements a VAE-GAN architecture to colorize greyscale images. The model is trained on a large dataset of color images and learns to generate plausible colorizations for unseen greyscale inputs. The project includes a web interface for users to upload their own images and see the colorization results.',
+    githubUrl: 'https://github.com/adamuser/vae-gan',
     startDate: '2024-01-15',
     endDate: '2024-06-30',
+    status: 'completed',
     keyFeatures: [
       'User authentication and profile management',
       'Advanced product search and filtering',
@@ -19,13 +20,14 @@ export const projects: Project[] = [
     ],
   },
   {
-    id: 'task-management-app',
-    title: 'Task Management App',
-    shortDescription: 'Collaborative task management with real-time updates and team features',
-    fullDescription: 'A sophisticated task management application designed for teams to collaborate effectively. Features include real-time updates, drag-and-drop kanban boards, time tracking, and comprehensive reporting.',
-    githubUrl: 'https://github.com/adamuser/task-manager',
+    id: 'predicting-mrna-expression-levels-using-deep-learning',
+    title: 'Predicting mRNA Expression Levels Using Deep Learning',
+    shortDescription: 'A deep learning model to predict mRNA expression levels from genomic sequences.',
+    fullDescription: 'This project focuses on developing a deep learning model to predict mRNA expression levels based on genomic sequences. The model is trained on a large dataset of RNA-Seq data and aims to provide insights into gene expression regulation.',
+    githubUrl: 'https://github.com/adamuser/mrna-expression-prediction',
     startDate: '2023-09-01',
     endDate: '2024-01-15',
+    status: 'completed',
     keyFeatures: [
       'Real-time collaborative editing',
       'Drag-and-drop kanban boards',
@@ -33,39 +35,6 @@ export const projects: Project[] = [
       'Team member management',
       'Custom workflow creation',
       'Mobile-responsive design'
-    ],
-  },
-  {
-    id: 'weather-app',
-    title: 'Weather Forecast App',
-    shortDescription: 'Beautiful weather app with animations and detailed forecasts',
-    fullDescription: 'A visually stunning weather application that provides detailed forecasts with smooth animations and an intuitive user interface. Features location-based weather, 7-day forecasts, and weather alerts.',
-    githubUrl: 'https://github.com/adamuser/weather-app',
-    startDate: '2023-06-01',
-    endDate: '2023-08-15',
-    keyFeatures: [
-      'Location-based weather detection',
-      'Animated weather illustrations',
-      'Hourly and 7-day forecasts',
-      'Weather alerts and notifications',
-      'Multiple location support',
-      'Offline functionality'
-    ],
-  },
-  {
-    id: 'design-system',
-    title: 'Component Design System',
-    shortDescription: 'Comprehensive design system with reusable components and documentation',
-    fullDescription: 'A complete design system built to standardize UI components across multiple projects. Includes a component library, design tokens, documentation site, and integration tools.',
-    githubUrl: 'https://github.com/adamuser/design-system',
-    startDate: '2024-03-01',
-    keyFeatures: [
-      'Reusable component library',
-      'Design token system',
-      'Interactive documentation',
-      'Integration tools',
-      'Accessibility-first approach',
-      'Automated testing suite'
     ],
   }
 ];

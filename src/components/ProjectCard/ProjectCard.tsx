@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Card, CardContent, Typography, Box, IconButton } from '@mui/material';
+import { Card, CardContent, Typography, Box, IconButton, Chip } from '@mui/material';
 import { GitHub as GitHubIcon } from '@mui/icons-material';
 import { Project } from '../../types/project';
 
@@ -21,6 +21,41 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
       window.open(project.githubUrl, '_blank');
     }
   };
+
+  const getStatusLabel = (status: string) => {
+    switch (status) {
+      case 'completed':
+        return 'Completed';
+      case 'ongoing':
+        return 'Ongoing';
+      case 'planned':
+        return 'Planned';
+      default:
+        return status;
+    }
+  };
+
+  const getStatusStyles = (status: string) => ({
+    fontSize: '0.75rem',
+    fontWeight: 500,
+    px: 1.5,
+    py: 0.5,
+    backgroundColor: status === 'completed' 
+      ? 'rgba(34, 197, 94, 0.2)' 
+      : status === 'ongoing'
+      ? 'rgba(249, 115, 22, 0.2)'
+      : 'rgba(156, 163, 175, 0.2)',
+    color: status === 'completed'
+      ? '#22c55e'
+      : status === 'ongoing'
+      ? '#f97316'
+      : '#9ca3af',
+    border: `1px solid ${status === 'completed' 
+      ? 'rgba(34, 197, 94, 0.3)' 
+      : status === 'ongoing'
+      ? 'rgba(249, 115, 22, 0.3)'
+      : 'rgba(156, 163, 175, 0.3)'}`,
+  });
 
   return (
     <Card
@@ -44,16 +79,33 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
       }}
     >
       <CardContent sx={{ p: 3, flex: 1, display: 'flex', flexDirection: 'column' }}>
-        <Typography 
-          variant="h6" 
+        {/* Header with title and status */}
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 2, gap: 2 }}>
+          <Typography 
+            variant="h6" 
+            sx={{ 
+              color: 'white', 
+              fontWeight: 600, 
+              flex: 1,
+            }}
+          >
+            {project.title}
+          </Typography>
+          <Chip
+            label={getStatusLabel(project.status)}
+            size="small"
+            sx={getStatusStyles(project.status)}
+          />
+        </Box>
+
+        {/* Underline */}
+        <Box 
           sx={{ 
-            color: 'white', 
-            fontWeight: 600, 
-            mb: 2 
-          }}
-        >
-          {project.title}
-        </Typography>
+            height: '2px',
+            background: 'linear-gradient(90deg, #6366f1, #8b5cf6, #a855f7)',
+            mb: 3,
+          }} 
+        />
         
         <Typography 
           sx={{ 
