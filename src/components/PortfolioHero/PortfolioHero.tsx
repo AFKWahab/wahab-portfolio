@@ -1,10 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  Box,
-  Typography,
-  Button,
-  keyframes,
-} from "@mui/material";
+import { Box, Typography, Button, keyframes } from "@mui/material";
 import {
   containerStyles,
   gridContainerStyles,
@@ -24,7 +19,7 @@ import {
   getWindTrailStyles,
   getWindBurstStyles,
 } from "./styles";
-
+import { useNavigate } from "react-router-dom";
 const ping = keyframes`
   0% {
     transform: scale(1);
@@ -55,6 +50,7 @@ const PortfolioHero: React.FC = () => {
   const [faceComplete, setFaceComplete] = useState(false);
   const [showText, setShowText] = useState(false);
   const [showDescription, setShowDescription] = useState(false);
+  const navigate = useNavigate(); // Add this line
 
   const facePoints: Point[] = [
     { x: 200, y: 80 },
@@ -283,15 +279,22 @@ const PortfolioHero: React.FC = () => {
 
           <Box sx={getDescriptionStyles(showDescription)}>
             <Typography variant="h2" sx={subtitleStyles}>
-              software developer & masters in comp.sci 
+              software developer & masters in comp.sci
             </Typography>
 
             <Typography variant="body1" sx={descriptionStyles}>
-              i'm a 24 year old software developer based in denmark. I have a great personal interest in computer graphics, computer vision and bioinformatics.
+              i'm a 24 year old software developer based in denmark. I have a
+              great personal interest in computer graphics, computer vision and
+              bioinformatics. currently working as a software developer at qiagen.
             </Typography>
 
             <Box sx={getButtonsContainerStyles(showDescription)}>
-              <Button variant="contained" size="large" sx={primaryButtonStyles}>
+              <Button
+                variant="contained"
+                size="large"
+                sx={primaryButtonStyles}
+                onClick={() => navigate("/projects")} // Add this line
+              >
                 view my work
               </Button>
               <Button
