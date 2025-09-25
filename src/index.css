@@ -1,3 +1,4 @@
+@import 'katex/dist/katex.min.css';
 /* Global styles - keeping minimal since MUI handles most of it */
 * {
   box-sizing: border-box;

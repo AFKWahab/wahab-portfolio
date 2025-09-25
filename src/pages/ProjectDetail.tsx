@@ -1,8 +1,11 @@
+// pages/ProjectDetail.tsx
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Box, Typography, Container, Button, Grid, Card, CardContent, List, ListItem, ListItemText } from '@mui/material';
+import { Box, Typography, Container, Button, Chip, Grid } from '@mui/material';
 import { ArrowBack as ArrowBackIcon, GitHub as GitHubIcon, CalendarToday as CalendarIcon } from '@mui/icons-material';
 import { getProjectById } from '../data/projects';
+import ProjectSectionRenderer from '../components/ProjectSectionRenderer/ProjectSectionRenderer';
+import TableOfContents from '../components/TableOfContents/TableOfContents';
 
 const ProjectDetail: React.FC = () => {
   const { projectId } = useParams<{ projectId: string }>();
@@ -55,6 +58,9 @@ const ProjectDetail: React.FC = () => {
     });
   };
 
+  // Check if project has showTableOfContents flag
+  const shouldShowTOC = (project as any).showTableOfContents && project.sections && project.sections.length > 0;
+
   return (
     <Box
       sx={{
@@ -96,21 +102,42 @@ const ProjectDetail: React.FC = () => {
           >
             {project.title}
           </Typography>
+
+          {/* Tags */}
+          {project.tags && project.tags.length > 0 && (
+            <Box sx={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: 1, mb: 3 }}>
+              {project.tags.map((tag) => (
+                <Chip
+                  key={tag}
+                  label={tag}
+                  size="small"
+                  sx={{
+                    backgroundColor: 'rgba(99, 102, 241, 0.15)',
+                    color: '#a855f7',
+                    border: '1px solid rgba(99, 102, 241, 0.3)',
+                    fontWeight: 500
+                  }}
+                />
+              ))}
+            </Box>
+          )}
           
+          {/* Abstract or Full Description */}
           <Typography
             sx={{
               color: 'rgba(255, 255, 255, 0.8)',
               fontSize: '1.2rem',
               mb: 4,
-              maxWidth: '800px',
+              maxWidth: '900px',
               mx: 'auto',
               lineHeight: 1.6,
+              textAlign: 'justify'
             }}
           >
-            {project.fullDescription}
+            {project.abstract || project.fullDescription}
           </Typography>
 
-          {/* Project Info */}
+          {/* Project Meta Info */}
           <Box
             sx={{
               display: 'flex',
@@ -136,6 +163,20 @@ const ProjectDetail: React.FC = () => {
                 {project.endDate && ` - ${formatDate(project.endDate)}`}
               </Typography>
             </Box>
+            
+            <Chip
+              label={project.status.charAt(0).toUpperCase() + project.status.slice(1)}
+              sx={{
+                backgroundColor: project.status === 'completed' 
+                  ? 'rgba(34, 197, 94, 0.2)' 
+                  : 'rgba(249, 115, 22, 0.2)',
+                color: project.status === 'completed' ? '#22c55e' : '#f97316',
+                border: `1px solid ${project.status === 'completed' 
+                  ? 'rgba(34, 197, 94, 0.3)' 
+                  : 'rgba(249, 115, 22, 0.3)'}`,
+                fontWeight: 600
+              }}
+            />
           </Box>
 
           {/* GitHub Link */}
@@ -162,51 +203,74 @@ const ProjectDetail: React.FC = () => {
           )}
         </Box>
 
-        {/* Key Features */}
-        <Grid container spacing={4} justifyContent="center">
-          <Grid sx={{ xs: 12, lg: 8 }}>
-            <Typography
-              variant="h2"
-              sx={{
-                color: 'white',
-                fontSize: '1.8rem',
-                fontWeight: 600,
-                mb: 3,
-                textAlign: 'center',
-              }}
-            >
-              Key Features
-            </Typography>
-            <Card
-              sx={{
-                background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%)',
-                backdropFilter: 'blur(10px)',
-                border: '1px solid rgba(99, 102, 241, 0.2)',
-                borderRadius: 3,
-                color: 'white',
-              }}
-            >
-              <CardContent>
-                <List>
-                  {project.keyFeatures.map((feature, index) => (
-                    <ListItem key={index} sx={{ px: 0 }}>
-                      <ListItemText
-                        primary={feature}
-                        sx={{
-                          '& .MuiListItemText-primary': {
-                            color: 'rgba(255, 255, 255, 0.9)',
-                            fontSize: '1rem',
-                            lineHeight: 1.6,
-                          }
-                        }}
-                      />
-                    </ListItem>
-                  ))}
-                </List>
-              </CardContent>
-            </Card>
+        {/* Table of Contents - Only show if explicitly enabled */}
+        {shouldShowTOC && (
+          <Box sx={{ display: 'flex', justifyContent: 'center', mb: 4 }}>
+            <TableOfContents sections={project.sections!} />
+          </Box>
+        )}
+
+        {/* Technical Sections - Full width restored */}
+        {project.sections && project.sections.length > 0 ? (
+          <Box>
+            {project.sections
+              .sort((a, b) => a.order - b.order)
+              .map((section) => (
+                <ProjectSectionRenderer key={section.id} section={section} />
+              ))}
+          </Box>
+        ) : (
+          /* Fallback to basic key features if no detailed sections */
+          <Grid container spacing={4} justifyContent="center">
+            <Grid sx={{ xs: 12, lg: 8 }}>
+              <Typography
+                variant="h2"
+                sx={{
+                  color: 'white',
+                  fontSize: '1.8rem',
+                  fontWeight: 600,
+                  mb: 3,
+                  textAlign: 'center',
+                }}
+              >
+                Key Features
+              </Typography>
+              <Box
+                sx={{
+                  background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%)',
+                  backdropFilter: 'blur(10px)',
+                  border: '1px solid rgba(99, 102, 241, 0.2)',
+                  borderRadius: 3,
+                  p: 4,
+                  color: 'white',
+                }}
+              >
+                {project.keyFeatures.map((feature, index) => (
+                  <Typography
+                    key={index}
+                    sx={{
+                      color: 'rgba(255, 255, 255, 0.9)',
+                      fontSize: '1rem',
+                      lineHeight: 1.6,
+                      mb: 1,
+                      '&:last-child': { mb: 0 },
+                      '&:before': {
+                        content: '"•"',
+                        color: '#6366f1',
+                        fontWeight: 'bold',
+                        display: 'inline-block',
+                        width: '1em',
+                        marginRight: '0.5em'
+                      }
+                    }}
+                  >
+                    {feature}
+                  </Typography>
+                ))}
+              </Box>
+            </Grid>
           </Grid>
-        </Grid>
+        )}
       </Container>
     </Box>
   );
