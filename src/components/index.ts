@@ -8,3 +8,7 @@ export { default as HistogramChart } from './HistogramChart';
 export { default as BenchmarkTable } from './BenchmarkTable';
 export { default as PerformanceChart } from './PerformanceChart';
 export { default as TableOfContents } from './TableOfContents';
+export { default as ContactModal } from './ContactModal';
+export { default as ModelComparison } from './ModelComparison';
+export { default as SpeciesComparison } from './SpeciesComparison';
+export { default as LearningCurves } from './LearningCurves';

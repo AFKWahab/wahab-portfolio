@@ -92,7 +92,7 @@ export interface SubSection {
 }
 
 export interface CustomVisualization {
-  type: 'comparison-table' | 'training-chart' | 'histogram' | 'benchmark-table' | 'performance-chart' | 'custom';
+  type: 'comparison-table' | 'training-chart' | 'histogram' | 'benchmark-table' | 'performance-chart' | 'species-comparison' | 'learning-curves' | 'model-comparison'|'custom';
   data: any; // Flexible data structure for different visualization types
 }
 

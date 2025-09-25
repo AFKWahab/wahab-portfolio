@@ -20,6 +20,8 @@ import {
   getWindBurstStyles,
 } from "./styles";
 import { useNavigate } from "react-router-dom";
+import ContactModal from "../ContactModal/ContactModal";
+
 const ping = keyframes`
   0% {
     transform: scale(1);
@@ -50,7 +52,8 @@ const PortfolioHero: React.FC = () => {
   const [faceComplete, setFaceComplete] = useState(false);
   const [showText, setShowText] = useState(false);
   const [showDescription, setShowDescription] = useState(false);
-  const navigate = useNavigate(); // Add this line
+  const [contactModalOpen, setContactModalOpen] = useState(false);
+  const navigate = useNavigate();
 
   const facePoints: Point[] = [
     { x: 200, y: 80 },
@@ -293,14 +296,32 @@ const PortfolioHero: React.FC = () => {
                 variant="contained"
                 size="large"
                 sx={primaryButtonStyles}
-                onClick={() => navigate("/projects")} // Add this line
+                onClick={() => navigate("/projects")}
               >
                 view my work
+              </Button>
+              <Button
+                variant="contained"
+                size="large"
+                sx={{
+                  background: 'linear-gradient(45deg, #22c55e 30%, #16a34a 90%)',
+                  color: 'white',
+                  boxShadow: '0 4px 15px rgba(34, 197, 94, 0.3)',
+                  '&:hover': {
+                    boxShadow: '0 4px 25px rgba(34, 197, 94, 0.5)',
+                    background: 'linear-gradient(45deg, #16a34a 30%, #15803d 90%)',
+                    transform: 'scale(1.05)',
+                  },
+                }}
+                onClick={() => navigate("/experience")}
+              >
+                my experience
               </Button>
               <Button
                 variant="outlined"
                 size="large"
                 sx={secondaryButtonStyles}
+                onClick={() => setContactModalOpen(true)}
               >
                 get in touch
               </Button>
@@ -308,6 +329,11 @@ const PortfolioHero: React.FC = () => {
           </Box>
         </Box>
       </Box>
+      
+      <ContactModal 
+        open={contactModalOpen} 
+        onClose={() => setContactModalOpen(false)} 
+      />
     </Box>
   );
 };
