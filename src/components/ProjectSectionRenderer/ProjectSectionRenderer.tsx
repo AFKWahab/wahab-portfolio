@@ -6,6 +6,8 @@ import MathRenderer from '../MathRenderer/MathRenderer';
 import ComparisonTable from '../ComparisonTable/ComparisonTable';
 import DataChart from '../DataChart/DataChart';
 import HistogramChart from '../HistogramChart/HistogramChart';
+import BenchmarkTable from '../BenchmarkTable/BenchmarkTable';
+import PerformanceChart from '../PerformanceChart/PerformanceChart';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { tomorrow } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
@@ -61,7 +63,7 @@ const ProjectSectionRenderer: React.FC<ProjectSectionRendererProps> = ({ section
                   background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(139, 92, 246, 0.05) 100%)',
                   border: '1px solid rgba(99, 102, 241, 0.1)',
                   borderRadius: 2,
-                  height: '180px', // Increased height to prevent cutoff
+                  height: '180px',
                   display: 'flex',
                   flexDirection: 'column'
                 }}
@@ -71,8 +73,8 @@ const ProjectSectionRenderer: React.FC<ProjectSectionRendererProps> = ({ section
                   flex: 1, 
                   display: 'flex', 
                   flexDirection: 'column', 
-                  justifyContent: 'center', // Center content vertically
-                  alignItems: 'center', // Center content horizontally
+                  justifyContent: 'center',
+                  alignItems: 'center',
                   textAlign: 'center'
                 }}>
                   <Typography 
@@ -81,7 +83,7 @@ const ProjectSectionRenderer: React.FC<ProjectSectionRendererProps> = ({ section
                       color: '#6366f1', 
                       fontWeight: 700, 
                       mb: 1, 
-                      fontSize: '2.2rem', // Slightly larger
+                      fontSize: '2.2rem',
                       lineHeight: 1.1
                     }}
                   >
@@ -175,7 +177,7 @@ const ProjectSectionRenderer: React.FC<ProjectSectionRendererProps> = ({ section
                     key={chartIndex} 
                     sx={{ 
                       flex: 1,
-                      minWidth: 0, // Important for flex items with content that might overflow
+                      minWidth: 0,
                       width: { xs: '100%', lg: '50%' }
                     }}
                   >
@@ -213,6 +215,28 @@ const ProjectSectionRenderer: React.FC<ProjectSectionRendererProps> = ({ section
               <HistogramChart
                 title={viz.data.title}
                 dataPath={viz.data.dataPath}
+                caption={viz.data.caption}
+              />
+            </Box>
+          );
+
+        case 'benchmark-table':
+          return (
+            <Box key={`viz-${index}`} sx={{ my: 4, width: '100%' }}>
+              <BenchmarkTable
+                title={viz.data.title}
+                sequences={viz.data.sequences}
+                caption={viz.data.caption}
+              />
+            </Box>
+          );
+
+        case 'performance-chart':
+          return (
+            <Box key={`viz-${index}`} sx={{ my: 4, width: '100%' }}>
+              <PerformanceChart
+                title={viz.data.title}
+                chartImage={viz.data.chartImage}
                 caption={viz.data.caption}
               />
             </Box>

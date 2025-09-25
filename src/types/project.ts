@@ -1,4 +1,4 @@
-// Updated types/project.ts
+// types/project.ts
 export interface Project {
   id: string;
   title: string;
@@ -91,6 +91,27 @@ export interface SubSection {
 }
 
 export interface CustomVisualization {
-  type: 'comparison-table' | 'training-chart' | 'histogram' | 'custom';
+  type: 'comparison-table' | 'training-chart' | 'histogram' | 'benchmark-table' | 'performance-chart' | 'custom';
   data: any; // Flexible data structure for different visualization types
+}
+
+// Specific interfaces for the new visualization types
+export interface BenchmarkSequence {
+  id: string;
+  length: number;
+  optimal: number;
+  aco: number;
+  hart: number;
+}
+
+export interface BenchmarkTableData {
+  title?: string;
+  sequences: BenchmarkSequence[];
+  caption?: string;
+}
+
+export interface PerformanceChartData {
+  title?: string;
+  chartImage: string;
+  caption?: string;
 }
