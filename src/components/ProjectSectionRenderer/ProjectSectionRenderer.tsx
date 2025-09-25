@@ -16,7 +16,7 @@ interface ProjectSectionRendererProps {
 }
 
 const ProjectSectionRenderer: React.FC<ProjectSectionRendererProps> = ({ section }) => {
-  const { title, content } = section;
+  const { id, title, content } = section;
 
   const renderImage = (image: ProjectImage) => (
     <Box key={image.id} sx={{ mb: 3 }}>
@@ -249,7 +249,7 @@ const ProjectSectionRenderer: React.FC<ProjectSectionRendererProps> = ({ section
   };
 
   return (
-    <Box sx={{ mb: 4 }}>
+    <Box id={id} sx={{ mb: 4, scrollMarginTop: '20px' }}>
       <Typography
         variant="h3"
         sx={{
@@ -351,7 +351,7 @@ const ProjectSectionRenderer: React.FC<ProjectSectionRendererProps> = ({ section
           {content.subsections && content.subsections.length > 0 && (
             <Box sx={{ mt: 4 }}>
               {content.subsections.map((subsection) => (
-                <Box key={subsection.id} sx={{ mb: 3 }}>
+                <Box key={subsection.id} id={subsection.id} sx={{ mb: 3, scrollMarginTop: '20px' }}>
                   <Typography
                     variant="h4"
                     sx={{
