@@ -1,7 +1,15 @@
-// components/HistogramChart/HistogramChart.tsx
-import React, { useEffect, useState } from 'react';
-import { Box, Typography } from '@mui/material';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Legend, ResponsiveContainer, Tooltip } from 'recharts';
+import React, { useEffect, useState } from "react";
+import { Box, Typography } from "@mui/material";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Legend,
+  ResponsiveContainer,
+  Tooltip,
+} from "recharts";
 
 interface HistogramData {
   hue: number;
@@ -14,18 +22,22 @@ interface HistogramChartProps {
   caption?: string;
 }
 
-const HistogramChart: React.FC<HistogramChartProps> = ({ title, dataPath, caption }) => {
+const HistogramChart: React.FC<HistogramChartProps> = ({
+  title,
+  dataPath,
+  caption,
+}) => {
   const [data, setData] = useState<HistogramData[]>([]);
   const [loading, setLoading] = useState(true);
   const [hiddenLines, setHiddenLines] = useState<Set<string>>(new Set());
 
   const lineConfigs = [
-    { key: 's1', name: 'Sample 1', color: '#ef4444' },
-    { key: 's2', name: 'Sample 2', color: '#22c55e' },
-    { key: 's3', name: 'Sample 3', color: '#3b82f6' },
-    { key: 's4', name: 'Sample 4', color: '#06b6d4' },
-    { key: 's5', name: 'Sample 5', color: '#f97316' },
-    { key: 'real', name: 'Ground Truth', color: '#000000', strokeWidth: 3 }
+    { key: "s1", name: "Sample 1", color: "#ef4444" },
+    { key: "s2", name: "Sample 2", color: "#22c55e" },
+    { key: "s3", name: "Sample 3", color: "#3b82f6" },
+    { key: "s4", name: "Sample 4", color: "#06b6d4" },
+    { key: "s5", name: "Sample 5", color: "#f97316" },
+    { key: "real", name: "Ground Truth", color: "#000000", strokeWidth: 3 },
   ];
 
   useEffect(() => {
@@ -33,26 +45,26 @@ const HistogramChart: React.FC<HistogramChartProps> = ({ title, dataPath, captio
       try {
         const response = await fetch(dataPath);
         const text = await response.text();
-        
-        const lines = text.trim().split('\n');
+
+        const lines = text.trim().split("\n");
         const headers = lines[0].split(/\s+/);
-        
-        const parsedData = lines.slice(1).map(line => {
+
+        const parsedData = lines.slice(1).map((line) => {
           const values = line.split(/\s+/);
           const row: HistogramData = { hue: 0 };
-          
+
           headers.forEach((header, index) => {
             const value = parseFloat(values[index]);
             row[header] = value;
           });
-          
+
           return row;
         });
-        
+
         setData(parsedData);
         setLoading(false);
       } catch (error) {
-        console.error('Error loading histogram data:', error);
+        console.error("Error loading histogram data:", error);
         setLoading(false);
       }
     };
@@ -75,14 +87,14 @@ const HistogramChart: React.FC<HistogramChartProps> = ({ title, dataPath, captio
       return (
         <Box
           sx={{
-            background: 'rgba(0, 0, 0, 0.8)',
-            border: '1px solid rgba(99, 102, 241, 0.3)',
+            background: "rgba(0, 0, 0, 0.8)",
+            border: "1px solid rgba(99, 102, 241, 0.3)",
             borderRadius: 2,
             p: 2,
-            color: 'white'
+            color: "white",
           }}
         >
-          <Typography sx={{ fontSize: '0.9rem', mb: 1 }}>
+          <Typography sx={{ fontSize: "0.9rem", mb: 1 }}>
             Hue: {parseFloat(label).toFixed(2)}
           </Typography>
           {payload.map((entry: any, index: number) => (
@@ -90,7 +102,7 @@ const HistogramChart: React.FC<HistogramChartProps> = ({ title, dataPath, captio
               key={index}
               sx={{
                 color: entry.color,
-                fontSize: '0.8rem'
+                fontSize: "0.8rem",
               }}
             >
               {entry.name}: {entry.value}
@@ -105,21 +117,29 @@ const HistogramChart: React.FC<HistogramChartProps> = ({ title, dataPath, captio
   const CustomLegend = (props: any) => {
     const { payload } = props;
     return (
-      <Box sx={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: 2, mt: 2 }}>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          flexWrap: "wrap",
+          gap: 2,
+          mt: 2,
+        }}
+      >
         {payload.map((entry: any, index: number) => (
           <Box
             key={index}
             onClick={() => handleLegendClick(entry.dataKey)}
             sx={{
-              display: 'flex',
-              alignItems: 'center',
+              display: "flex",
+              alignItems: "center",
               gap: 1,
-              cursor: 'pointer',
+              cursor: "pointer",
               opacity: hiddenLines.has(entry.dataKey) ? 0.4 : 1,
-              transition: 'opacity 0.2s',
-              '&:hover': {
-                opacity: hiddenLines.has(entry.dataKey) ? 0.6 : 0.8
-              }
+              transition: "opacity 0.2s",
+              "&:hover": {
+                opacity: hiddenLines.has(entry.dataKey) ? 0.6 : 0.8,
+              },
             }}
           >
             <Box
@@ -127,10 +147,12 @@ const HistogramChart: React.FC<HistogramChartProps> = ({ title, dataPath, captio
                 width: 16,
                 height: 3,
                 backgroundColor: entry.color,
-                borderRadius: 1
+                borderRadius: 1,
               }}
             />
-            <Typography sx={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '0.9rem' }}>
+            <Typography
+              sx={{ color: "rgba(255, 255, 255, 0.8)", fontSize: "0.9rem" }}
+            >
               {entry.value}
             </Typography>
           </Box>
@@ -141,8 +163,8 @@ const HistogramChart: React.FC<HistogramChartProps> = ({ title, dataPath, captio
 
   if (loading) {
     return (
-      <Box sx={{ textAlign: 'center', py: 4 }}>
-        <Typography sx={{ color: 'rgba(255, 255, 255, 0.6)' }}>
+      <Box sx={{ textAlign: "center", py: 4 }}>
+        <Typography sx={{ color: "rgba(255, 255, 255, 0.6)" }}>
           Loading histogram data...
         </Typography>
       </Box>
@@ -154,23 +176,24 @@ const HistogramChart: React.FC<HistogramChartProps> = ({ title, dataPath, captio
       <Typography
         variant="h4"
         sx={{
-          color: 'white',
-          fontSize: '1.3rem',
+          color: "white",
+          fontSize: "1.3rem",
           fontWeight: 600,
           mb: 3,
-          textAlign: 'center'
+          textAlign: "center",
         }}
       >
         {title}
       </Typography>
-      
+
       <Box
         sx={{
-          background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%)',
-          backdropFilter: 'blur(10px)',
-          border: '1px solid rgba(99, 102, 241, 0.2)',
+          background:
+            "linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%)",
+          backdropFilter: "blur(10px)",
+          border: "1px solid rgba(99, 102, 241, 0.2)",
           borderRadius: 3,
-          p: 3
+          p: 3,
         }}
       >
         <ResponsiveContainer width="100%" height={500}>
@@ -178,35 +201,44 @@ const HistogramChart: React.FC<HistogramChartProps> = ({ title, dataPath, captio
             data={data}
             margin={{ top: 20, right: 30, left: 20, bottom: 60 }}
           >
-            <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.1)" />
-            <XAxis 
-              dataKey="hue" 
+            <CartesianGrid
+              strokeDasharray="3 3"
+              stroke="rgba(255, 255, 255, 0.1)"
+            />
+            <XAxis
+              dataKey="hue"
               stroke="rgba(255, 255, 255, 0.8)"
               fontSize={12}
               domain={[0, 1]}
               type="number"
               ticks={[0, 0.2, 0.4, 0.6, 0.8, 1.0]}
               tickFormatter={(value) => value.toFixed(1)}
-              label={{ 
-                value: 'Hue', 
-                position: 'insideBottom', 
-                offset: -10, 
-                style: { textAnchor: 'middle', fill: 'rgba(255, 255, 255, 0.8)' } 
+              label={{
+                value: "Hue",
+                position: "insideBottom",
+                offset: -10,
+                style: {
+                  textAnchor: "middle",
+                  fill: "rgba(255, 255, 255, 0.8)",
+                },
               }}
             />
-            <YAxis 
+            <YAxis
               stroke="rgba(255, 255, 255, 0.8)"
               fontSize={12}
-              label={{ 
-                value: 'Pixels', 
-                angle: -90, 
-                position: 'insideLeft', 
-                style: { textAnchor: 'middle', fill: 'rgba(255, 255, 255, 0.8)' } 
+              label={{
+                value: "Pixels",
+                angle: -90,
+                position: "insideLeft",
+                style: {
+                  textAnchor: "middle",
+                  fill: "rgba(255, 255, 255, 0.8)",
+                },
               }}
             />
             <Tooltip content={<CustomTooltip />} />
             <Legend content={<CustomLegend />} />
-            
+
             {lineConfigs.map((lineConfig) => (
               <Line
                 key={lineConfig.key}
@@ -228,12 +260,12 @@ const HistogramChart: React.FC<HistogramChartProps> = ({ title, dataPath, captio
         <Typography
           variant="caption"
           sx={{
-            display: 'block',
-            textAlign: 'center',
-            color: 'rgba(255, 255, 255, 0.7)',
+            display: "block",
+            textAlign: "center",
+            color: "rgba(255, 255, 255, 0.7)",
             mt: 2,
-            fontSize: '0.9rem',
-            fontStyle: 'italic'
+            fontSize: "0.9rem",
+            fontStyle: "italic",
           }}
         >
           {caption}

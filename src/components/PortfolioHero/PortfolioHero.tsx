@@ -288,7 +288,8 @@ const PortfolioHero: React.FC = () => {
             <Typography variant="body1" sx={descriptionStyles}>
               i'm a 24 year old software developer based in denmark. I have a
               great personal interest in computer graphics, computer vision and
-              bioinformatics. currently working as a software developer at qiagen.
+              bioinformatics. currently working as a software developer at
+              qiagen.
             </Typography>
 
             <Box sx={getButtonsContainerStyles(showDescription)}>
@@ -304,13 +305,15 @@ const PortfolioHero: React.FC = () => {
                 variant="contained"
                 size="large"
                 sx={{
-                  background: 'linear-gradient(45deg, #22c55e 30%, #16a34a 90%)',
-                  color: 'white',
-                  boxShadow: '0 4px 15px rgba(34, 197, 94, 0.3)',
-                  '&:hover': {
-                    boxShadow: '0 4px 25px rgba(34, 197, 94, 0.5)',
-                    background: 'linear-gradient(45deg, #16a34a 30%, #15803d 90%)',
-                    transform: 'scale(1.05)',
+                  background:
+                    "linear-gradient(45deg, #22c55e 30%, #16a34a 90%)",
+                  color: "white",
+                  boxShadow: "0 4px 15px rgba(34, 197, 94, 0.3)",
+                  "&:hover": {
+                    boxShadow: "0 4px 25px rgba(34, 197, 94, 0.5)",
+                    background:
+                      "linear-gradient(45deg, #16a34a 30%, #15803d 90%)",
+                    transform: "scale(1.05)",
                   },
                 }}
                 onClick={() => navigate("/experience")}
@@ -329,10 +332,10 @@ const PortfolioHero: React.FC = () => {
           </Box>
         </Box>
       </Box>
-      
-      <ContactModal 
-        open={contactModalOpen} 
-        onClose={() => setContactModalOpen(false)} 
+
+      <ContactModal
+        open={contactModalOpen}
+        onClose={() => setContactModalOpen(false)}
       />
     </Box>
   );

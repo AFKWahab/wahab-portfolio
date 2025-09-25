@@ -1,7 +1,15 @@
-// components/LearningCurves/LearningCurves.tsx
-import React from 'react';
-import { Box, Typography, Card, CardContent } from '@mui/material';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import React from "react";
+import { Box, Typography, Card, CardContent } from "@mui/material";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
 
 interface CurveData {
   label: string;
@@ -16,31 +24,40 @@ interface LearningCurvesProps {
   caption?: string;
 }
 
-const LearningCurves: React.FC<LearningCurvesProps> = ({ title, description, curves, caption }) => {
-  // Generate mock data for visualization
+const LearningCurves: React.FC<LearningCurvesProps> = ({
+  title,
+  description,
+  curves,
+  caption,
+}) => {
   const generateCurveData = (finalR2: number, label: string) => {
     const data = [];
     const epochs = 50;
-    
+
     for (let i = 0; i <= epochs; i++) {
       const progress = i / epochs;
-      const value = finalR2 * (1 - Math.exp(-4 * progress)) + (Math.random() * 0.02 - 0.01);
+      const value =
+        finalR2 * (1 - Math.exp(-4 * progress)) + (Math.random() * 0.02 - 0.01);
       data.push({
         epoch: i,
-        [label]: Math.max(0, Math.min(value, finalR2 + 0.01))
+        [label]: Math.max(0, Math.min(value, finalR2 + 0.01)),
       });
     }
     return data;
   };
 
-  // Combine all curves data
   const allData: any[] = [];
   for (let i = 0; i <= 50; i++) {
     const dataPoint: any = { epoch: i };
-    curves.forEach(curve => {
+    curves.forEach((curve) => {
       const progress = i / 50;
-      const value = curve.finalR2 * (1 - Math.exp(-4 * progress)) + (Math.random() * 0.02 - 0.01);
-      dataPoint[curve.label] = Math.max(0, Math.min(value, curve.finalR2 + 0.01));
+      const value =
+        curve.finalR2 * (1 - Math.exp(-4 * progress)) +
+        (Math.random() * 0.02 - 0.01);
+      dataPoint[curve.label] = Math.max(
+        0,
+        Math.min(value, curve.finalR2 + 0.01)
+      );
     });
     allData.push(dataPoint);
   }
@@ -50,14 +67,14 @@ const LearningCurves: React.FC<LearningCurvesProps> = ({ title, description, cur
       return (
         <Box
           sx={{
-            background: 'rgba(0, 0, 0, 0.9)',
-            border: '1px solid rgba(99, 102, 241, 0.3)',
+            background: "rgba(0, 0, 0, 0.9)",
+            border: "1px solid rgba(99, 102, 241, 0.3)",
             borderRadius: 2,
             p: 2,
-            color: 'white'
+            color: "white",
           }}
         >
-          <Typography sx={{ fontSize: '0.9rem', mb: 1, fontWeight: 600 }}>
+          <Typography sx={{ fontSize: "0.9rem", mb: 1, fontWeight: 600 }}>
             Epoch: {label}
           </Typography>
           {payload.map((entry: any, index: number) => (
@@ -65,8 +82,8 @@ const LearningCurves: React.FC<LearningCurvesProps> = ({ title, description, cur
               key={index}
               sx={{
                 color: entry.color,
-                fontSize: '0.85rem',
-                mb: 0.5
+                fontSize: "0.85rem",
+                mb: 0.5,
               }}
             >
               {entry.name}: {entry.value.toFixed(3)}
@@ -84,35 +101,36 @@ const LearningCurves: React.FC<LearningCurvesProps> = ({ title, description, cur
         <Typography
           variant="h4"
           sx={{
-            color: 'white',
-            fontSize: '1.3rem',
+            color: "white",
+            fontSize: "1.3rem",
             fontWeight: 600,
             mb: 1,
-            textAlign: 'center'
+            textAlign: "center",
           }}
         >
           {title}
         </Typography>
       )}
-      
+
       {description && (
         <Typography
           sx={{
-            color: 'rgba(255, 255, 255, 0.8)',
-            fontSize: '0.95rem',
+            color: "rgba(255, 255, 255, 0.8)",
+            fontSize: "0.95rem",
             mb: 3,
-            textAlign: 'center'
+            textAlign: "center",
           }}
         >
           {description}
         </Typography>
       )}
-      
+
       <Card
         sx={{
-          background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%)',
-          backdropFilter: 'blur(10px)',
-          border: '1px solid rgba(99, 102, 241, 0.2)',
+          background:
+            "linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%)",
+          backdropFilter: "blur(10px)",
+          border: "1px solid rgba(99, 102, 241, 0.2)",
           borderRadius: 3,
         }}
       >
@@ -122,23 +140,33 @@ const LearningCurves: React.FC<LearningCurvesProps> = ({ title, description, cur
               data={allData}
               margin={{ top: 20, right: 30, left: 20, bottom: 50 }}
             >
-              <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.1)" />
-              <XAxis 
-                dataKey="epoch" 
-                stroke="rgba(255, 255, 255, 0.8)"
-                label={{ value: 'Epoch', position: 'insideBottom', offset: -5, style: { fill: 'rgba(255, 255, 255, 0.8)' } }}
+              <CartesianGrid
+                strokeDasharray="3 3"
+                stroke="rgba(255, 255, 255, 0.1)"
               />
-              <YAxis 
+              <XAxis
+                dataKey="epoch"
                 stroke="rgba(255, 255, 255, 0.8)"
-                label={{ value: 'R² Score', angle: -90, position: 'insideLeft', style: { fill: 'rgba(255, 255, 255, 0.8)' } }}
+                label={{
+                  value: "Epoch",
+                  position: "insideBottom",
+                  offset: -5,
+                  style: { fill: "rgba(255, 255, 255, 0.8)" },
+                }}
+              />
+              <YAxis
+                stroke="rgba(255, 255, 255, 0.8)"
+                label={{
+                  value: "R² Score",
+                  angle: -90,
+                  position: "insideLeft",
+                  style: { fill: "rgba(255, 255, 255, 0.8)" },
+                }}
                 domain={[0, 0.8]}
               />
               <Tooltip content={<CustomTooltip />} />
-              <Legend 
-                wrapperStyle={{ paddingTop: '20px' }}
-                iconType="line"
-              />
-              
+              <Legend wrapperStyle={{ paddingTop: "20px" }} iconType="line" />
+
               {curves.map((curve) => (
                 <Line
                   key={curve.label}
@@ -152,20 +180,27 @@ const LearningCurves: React.FC<LearningCurvesProps> = ({ title, description, cur
               ))}
             </LineChart>
           </ResponsiveContainer>
-          
+
           {/* Legend with final values */}
-          <Box sx={{ display: 'flex', justifyContent: 'center', gap: 3, mt: 3 }}>
+          <Box
+            sx={{ display: "flex", justifyContent: "center", gap: 3, mt: 3 }}
+          >
             {curves.map((curve) => (
-              <Box key={curve.label} sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+              <Box
+                key={curve.label}
+                sx={{ display: "flex", alignItems: "center", gap: 1 }}
+              >
                 <Box
                   sx={{
                     width: 20,
                     height: 3,
                     backgroundColor: curve.color,
-                    borderRadius: 1
+                    borderRadius: 1,
                   }}
                 />
-                <Typography sx={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '0.9rem' }}>
+                <Typography
+                  sx={{ color: "rgba(255, 255, 255, 0.8)", fontSize: "0.9rem" }}
+                >
                   {curve.label}: {curve.finalR2.toFixed(3)}
                 </Typography>
               </Box>
@@ -178,15 +213,15 @@ const LearningCurves: React.FC<LearningCurvesProps> = ({ title, description, cur
         <Typography
           variant="caption"
           sx={{
-            display: 'block',
-            textAlign: 'center',
-            color: 'rgba(255, 255, 255, 0.7)',
+            display: "block",
+            textAlign: "center",
+            color: "rgba(255, 255, 255, 0.7)",
             mt: 3,
-            fontSize: '0.95rem',
-            fontStyle: 'italic',
+            fontSize: "0.95rem",
+            fontStyle: "italic",
             lineHeight: 1.4,
-            maxWidth: '800px',
-            mx: 'auto'
+            maxWidth: "800px",
+            mx: "auto",
           }}
         >
           {caption}

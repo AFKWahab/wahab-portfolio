@@ -8,13 +8,17 @@ export interface Project {
   startDate: string;
   endDate?: string;
   keyFeatures: string[];
-  status: 'completed' | 'ongoing' | 'planned';
-  
+  status: "completed" | "ongoing" | "planned";
+
   // New detailed content fields
   abstract?: string;
   sections?: ProjectSection[];
   tags?: string[];
-  category?: 'machine-learning' | 'web-development' | 'computer-vision' | 'bioinformatics';
+  category?:
+    | "machine-learning"
+    | "web-development"
+    | "computer-vision"
+    | "bioinformatics";
   showTableOfContents?: boolean;
 }
 
@@ -22,29 +26,29 @@ export interface ProjectSection {
   id: string;
   title: string;
   order: number;
-  type: 'text' | 'math' | 'image' | 'code' | 'results';
+  type: "text" | "math" | "image" | "code" | "results";
   content: SectionContent;
 }
 
 export interface SectionContent {
   // Text content with optional math
   text?: string;
-  
+
   // Math equations (LaTeX strings)
   equations?: MathEquation[];
-  
+
   // Images with captions
   images?: ProjectImage[];
-  
+
   // Code blocks
   code?: CodeBlock[];
-  
+
   // Results/metrics
   metrics?: Metric[];
-  
+
   // Sub-sections for complex sections
   subsections?: SubSection[];
-  
+
   // Custom visualizations (for LaTeX-generated content)
   customVisualizations?: CustomVisualization[];
 }
@@ -92,7 +96,16 @@ export interface SubSection {
 }
 
 export interface CustomVisualization {
-  type: 'comparison-table' | 'training-chart' | 'histogram' | 'benchmark-table' | 'performance-chart' | 'species-comparison' | 'learning-curves' | 'model-comparison'|'custom';
+  type:
+    | "comparison-table"
+    | "training-chart"
+    | "histogram"
+    | "benchmark-table"
+    | "performance-chart"
+    | "species-comparison"
+    | "learning-curves"
+    | "model-comparison"
+    | "custom";
   data: any; // Flexible data structure for different visualization types
 }
 

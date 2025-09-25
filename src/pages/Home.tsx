@@ -1,5 +1,5 @@
-import React from 'react';
-import PortfolioHero from '../components/PortfolioHero';
+import React from "react";
+import PortfolioHero from "../components/PortfolioHero";
 
 const Home: React.FC = () => {
   return <PortfolioHero />;

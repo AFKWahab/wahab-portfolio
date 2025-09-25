@@ -1,4 +1,3 @@
-// components/ProjectSectionRenderer/ProjectSectionRenderer.tsx
 import React from "react";
 import { Box, Typography, Card, CardContent, Grid, Chip } from "@mui/material";
 import { ProjectSection, ProjectImage, Metric } from "../../types/project";
@@ -10,9 +9,9 @@ import BenchmarkTable from "../BenchmarkTable/BenchmarkTable";
 import PerformanceChart from "../PerformanceChart/PerformanceChart";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { tomorrow } from "react-syntax-highlighter/dist/esm/styles/prism";
-import ModelComparison from '../ModelComparison/ModelComparison';
-import SpeciesComparison from '../SpeciesComparison/SpeciesComparison';
-import LearningCurves from '../LearningCurves/LearningCurves';
+import ModelComparison from "../ModelComparison/ModelComparison";
+import SpeciesComparison from "../SpeciesComparison/SpeciesComparison";
+import LearningCurves from "../LearningCurves/LearningCurves";
 interface ProjectSectionRendererProps {
   section: ProjectSection;
 }
