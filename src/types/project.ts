@@ -15,6 +15,7 @@ export interface Project {
   sections?: ProjectSection[];
   tags?: string[];
   category?: 'machine-learning' | 'web-development' | 'computer-vision' | 'bioinformatics';
+  showTableOfContents?: boolean;
 }
 
 export interface ProjectSection {

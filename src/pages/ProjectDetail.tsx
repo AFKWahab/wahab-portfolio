@@ -1,10 +1,11 @@
-// pages/ProjectDetail.tsx (Enhanced Version)
+// pages/ProjectDetail.tsx
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Box, Typography, Container, Button, Chip, Grid } from '@mui/material';
 import { ArrowBack as ArrowBackIcon, GitHub as GitHubIcon, CalendarToday as CalendarIcon } from '@mui/icons-material';
 import { getProjectById } from '../data/projects';
 import ProjectSectionRenderer from '../components/ProjectSectionRenderer/ProjectSectionRenderer';
+import TableOfContents from '../components/TableOfContents/TableOfContents';
 
 const ProjectDetail: React.FC = () => {
   const { projectId } = useParams<{ projectId: string }>();
@@ -56,6 +57,9 @@ const ProjectDetail: React.FC = () => {
       month: 'long',
     });
   };
+
+  // Check if project has showTableOfContents flag
+  const shouldShowTOC = (project as any).showTableOfContents && project.sections && project.sections.length > 0;
 
   return (
     <Box
@@ -199,7 +203,14 @@ const ProjectDetail: React.FC = () => {
           )}
         </Box>
 
-        {/* Technical Sections */}
+        {/* Table of Contents - Only show if explicitly enabled */}
+        {shouldShowTOC && (
+          <Box sx={{ display: 'flex', justifyContent: 'center', mb: 4 }}>
+            <TableOfContents sections={project.sections!} />
+          </Box>
+        )}
+
+        {/* Technical Sections - Full width restored */}
         {project.sections && project.sections.length > 0 ? (
           <Box>
             {project.sections

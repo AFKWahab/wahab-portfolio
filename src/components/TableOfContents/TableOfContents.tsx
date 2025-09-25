@@ -18,7 +18,7 @@ interface TOCSection {
 
 const TableOfContents: React.FC<TableOfContentsProps> = ({ sections, onSectionClick }) => {
   const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set());
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true); // Start open by default
 
   // Process sections to extract TOC structure
   const tocSections: TOCSection[] = sections
@@ -73,9 +73,9 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({ sections, onSectionCl
   };
 
   return (
-    <Box sx={{ position: 'sticky', top: 20, zIndex: 10 }}>
+    <Box sx={{ width: '100%', maxWidth: '800px' }}>
       {/* Toggle Button */}
-      <Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 2 }}>
+      <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 3 }}>
         <IconButton
           onClick={() => setIsOpen(!isOpen)}
           sx={{
@@ -89,6 +89,18 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({ sections, onSectionCl
         >
           <MenuBook />
         </IconButton>
+        <Typography
+          variant="h6"
+          sx={{
+            color: 'white',
+            fontWeight: 600,
+            display: 'flex',
+            alignItems: 'center',
+            gap: 1
+          }}
+        >
+          Table of Contents
+        </Typography>
       </Box>
 
       {/* Table of Contents */}
@@ -101,41 +113,9 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({ sections, onSectionCl
             border: '1px solid rgba(99, 102, 241, 0.3)',
             borderRadius: 3,
             p: 3,
-            maxHeight: '70vh',
-            overflowY: 'auto',
-            minWidth: '280px',
-            maxWidth: '350px',
-            '&::-webkit-scrollbar': {
-              width: '6px',
-            },
-            '&::-webkit-scrollbar-track': {
-              background: 'rgba(99, 102, 241, 0.1)',
-              borderRadius: '3px',
-            },
-            '&::-webkit-scrollbar-thumb': {
-              background: 'rgba(99, 102, 241, 0.3)',
-              borderRadius: '3px',
-              '&:hover': {
-                background: 'rgba(99, 102, 241, 0.5)',
-              },
-            },
+            width: '100%',
           }}
         >
-          <Typography
-            variant="h6"
-            sx={{
-              color: 'white',
-              fontWeight: 600,
-              mb: 2,
-              display: 'flex',
-              alignItems: 'center',
-              gap: 1
-            }}
-          >
-            <MenuBook sx={{ fontSize: '1.2rem' }} />
-            Table of Contents
-          </Typography>
-
           <List dense sx={{ py: 0 }}>
             {tocSections.map((section) => (
               <Box key={section.id}>
@@ -156,7 +136,7 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({ sections, onSectionCl
                         <Typography
                           sx={{
                             color: 'rgba(255, 255, 255, 0.9)',
-                            fontSize: '0.95rem',
+                            fontSize: '1rem',
                             fontWeight: 500,
                             lineHeight: 1.3
                           }}
@@ -186,7 +166,7 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({ sections, onSectionCl
                 {/* Subsections */}
                 {section.subsections && section.subsections.length > 0 && (
                   <Collapse in={expandedSections.has(section.id)} timeout="auto" unmountOnExit>
-                    <List dense sx={{ pl: 2 }}>
+                    <List dense sx={{ pl: 3 }}>
                       {section.subsections.map((subsection) => (
                         <ListItem key={subsection.id} disablePadding>
                           <ListItemButton
@@ -204,7 +184,7 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({ sections, onSectionCl
                                 <Typography
                                   sx={{
                                     color: 'rgba(255, 255, 255, 0.8)',
-                                    fontSize: '0.85rem',
+                                    fontSize: '0.9rem',
                                     fontWeight: 400,
                                     lineHeight: 1.3
                                   }}

@@ -263,6 +263,7 @@ export const projects: Project[] = [
     ],
   },
 // Updated project entry for data/projects.ts
+// Updated project entry for data/projects.ts
 {
   id: '3d-protein-folding',
   title: 'Algorithms for Protein Folding in the 3D HP Model',
@@ -275,6 +276,7 @@ export const projects: Project[] = [
   status: 'completed',
   tags: ['Bioinformatics', 'Algorithms', 'C++', 'OpenGL', 'Protein Folding', 'Approximation Algorithms', 'Ant Colony Optimization'],
   category: 'bioinformatics',
+  showTableOfContents: true,
   keyFeatures: [
     'Hart-Istrail 3/8-approximation algorithm implementation',
     'Ant Colony Optimization for 3D HP protein folding',
@@ -533,7 +535,7 @@ export const projects: Project[] = [
       order: 4,
       type: 'text',
       content: {
-        text: 'Understanding and debugging 3D protein folds requires sophisticated visualization capabilities. Traditional 2D representations fail to capture the spatial relationships crucial for analyzing folding algorithms. We developed a zC++ visualization system using modern OpenGL for rendering and ImGui for intuitive user interaction.',
+        text: 'Understanding and debugging 3D protein folds requires sophisticated visualization capabilities. Traditional 2D representations fail to capture the spatial relationships crucial for analyzing folding algorithms. We developed a comprehensive C++ visualization system using modern OpenGL for high-performance rendering and ImGui for intuitive user interaction.',
         subsections: [
           {
             id: 'motivation-and-design',
