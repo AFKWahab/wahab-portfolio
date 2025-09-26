@@ -11,7 +11,7 @@ export const proteinFoldingProject: Project = {
     "This project was completed as part of a 10 ECTS Computer Science course focusing on bioinformatics. We explored the design and analysis of algorithms for protein folding in the three-dimensional Hydrophobic-Polar (HP) model, implementing both the Hart-Istrail 3/8-approximation algorithm and an Ant Colony Optimization approach. The work includes theoretical analysis of the NP-completeness of the problem, custom C++ visualization tools using OpenGL, and comprehensive performance evaluation on benchmark datasets.",
   githubUrl: "https://gitlab.au.dk/bioinformatik/project-in-bioinformatics",
   startDate: "2024-09-01",
-  endDate: "2024-12-15",
+  endDate: "2025-01-01",
   status: "completed",
   tags: [
     "Bioinformatics",

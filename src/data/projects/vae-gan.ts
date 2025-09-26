@@ -11,8 +11,8 @@ export const vaeGanProject: Project = {
     "This work was a project I created with a study partner for our Deep Learning for Visual Recognition course. We received a 100/100 mark, and the best project of the semester. The work aims to advance colorization of grayscale images by improving realism, diversity and colorfulness. We train a new model that combines a Variational Auto-Encoder with a Generative Adversarial Network, implementing skip connections and Wasserstein loss to improve realism and training stability. We show that enhancing a base model with Wasserstein loss and skip-connections significantly improves training stability and visual fidelity, resulting in a 23.7% higher Inception Score.",
   githubUrl:
     "https://gitlab.au.dk/au667387/deep-learning-for-visual-recognition-project",
-  startDate: "2024-01-15",
-  endDate: "2024-06-30",
+  startDate: "2024-09-01",
+  endDate: "2025-01-01",
   status: "completed",
   tags: ["Machine Learning", "Computer Vision", "GANs", "VAE", "Deep Learning"],
   category: "machine-learning",

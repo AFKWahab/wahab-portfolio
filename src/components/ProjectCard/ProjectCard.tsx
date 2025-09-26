@@ -136,6 +136,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
             lineHeight: 1.6,
             flex: 1,
             mb: 3,
+            overflowWrap: "anywhere",
+            wordBreak: "break-word",
           }}
         >
           {project.shortDescription}

@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Typography, Grid, Card, CardContent } from "@mui/material";
+import { Box, Typography, Card, CardContent } from "@mui/material";
 
 interface ComparisonItem {
   id: string;
@@ -49,136 +49,106 @@ const ComparisonTable: React.FC<ComparisonTableProps> = ({
             borderRadius: 3,
             p: 4,
             width: "100%",
+            overflowX: "auto",
           }}
         >
-          {/* Row Headers and Images */}
-          <Grid container spacing={2}>
-            {/* Real Samples Row */}
-            <Grid sx={{ xs: 12 }}>
-              <Box sx={{ display: "flex", alignItems: "center", mb: 3 }}>
-                <Box sx={{ minWidth: "160px", mr: 3 }}>
-                  <Typography
-                    sx={{
-                      color: "white",
-                      fontWeight: 600,
-                      fontSize: "1.1rem",
-                    }}
-                  >
-                    Real Samples
-                  </Typography>
-                </Box>
-                <Box sx={{ display: "flex", gap: 2, flex: 1 }}>
-                  {items.map((item, index) => (
-                    <Box key={`real-${index}`} sx={{ flex: 1 }}>
-                      <Box
-                        component="img"
-                        src={item.originalImage}
-                        alt={`Original sample ${item.id}`}
-                        sx={{
-                          width: "100%",
-                          height: "auto",
-                          borderRadius: 2,
-                          border: "1px solid rgba(99, 102, 241, 0.3)",
-                          aspectRatio: "1/1",
-                          objectFit: "cover",
-                        }}
-                      />
-                    </Box>
-                  ))}
-                </Box>
+          <Box
+            sx={{
+              display: "grid",
+              gridTemplateColumns: `160px repeat(${items.length}, minmax(96px, 1fr))`,
+              gap: 2,
+              alignItems: "center",
+            }}
+          >
+            {/* Row 1: Real Samples */}
+            <Typography
+              sx={{ color: "white", fontWeight: 600, fontSize: "1.1rem" }}
+            >
+              Real Samples
+            </Typography>
+            {items.map((item, i) => (
+              <Box key={`real-${i}`}>
+                <Box
+                  component="img"
+                  src={item.originalImage}
+                  alt={`Original ${item.id}`}
+                  sx={{
+                    width: "100%",
+                    aspectRatio: "1 / 1",
+                    objectFit: "cover",
+                    borderRadius: 2,
+                    border: "1px solid rgba(99, 102, 241, 0.3)",
+                    display: "block",
+                  }}
+                />
               </Box>
-            </Grid>
+            ))}
 
-            {/* Colorized Samples Row */}
-            <Grid sx={{ xs: 12 }}>
-              <Box sx={{ display: "flex", alignItems: "center", mb: 3 }}>
-                <Box sx={{ minWidth: "160px", mr: 3 }}>
-                  <Typography
-                    sx={{
-                      color: "white",
-                      fontWeight: 600,
-                      fontSize: "1.1rem",
-                    }}
-                  >
-                    Colorized Samples
-                  </Typography>
-                </Box>
-                <Box sx={{ display: "flex", gap: 2, flex: 1 }}>
-                  {items.map((item, index) => (
-                    <Box key={`generated-${index}`} sx={{ flex: 1 }}>
-                      <Box
-                        component="img"
-                        src={item.generatedImage}
-                        alt={`Generated sample ${item.id}`}
-                        sx={{
-                          width: "100%",
-                          height: "auto",
-                          borderRadius: 2,
-                          border: "1px solid rgba(99, 102, 241, 0.3)",
-                          aspectRatio: "1/1",
-                          objectFit: "cover",
-                        }}
-                      />
-                    </Box>
-                  ))}
-                </Box>
+            {/* Row 2: Colorized Samples */}
+            <Typography
+              sx={{ color: "white", fontWeight: 600, fontSize: "1.1rem" }}
+            >
+              Colorized Samples
+            </Typography>
+            {items.map((item, i) => (
+              <Box key={`gen-${i}`}>
+                <Box
+                  component="img"
+                  src={item.generatedImage}
+                  alt={`Generated ${item.id}`}
+                  sx={{
+                    width: "100%",
+                    aspectRatio: "1 / 1",
+                    objectFit: "cover",
+                    borderRadius: 2,
+                    border: "1px solid rgba(99, 102, 241, 0.3)",
+                    display: "block",
+                  }}
+                />
               </Box>
-            </Grid>
+            ))}
 
-            {/* Percentage Row */}
-            <Grid sx={{ xs: 12 }}>
-              <Box sx={{ display: "flex", alignItems: "center" }}>
-                <Box sx={{ minWidth: "160px", mr: 3 }}>
-                  <Typography
+            {/* Row 3: % labeled real */}
+            <Typography
+              sx={{ color: "white", fontWeight: 600, fontSize: "1.1rem" }}
+            >
+              % labeled <em>real</em>
+            </Typography>
+            {items.map((item, i) => {
+              const val = parseFloat(item.percentage);
+              const color =
+                val > 50 ? "#22c55e" : val > 30 ? "#f97316" : "#ef4444";
+              return (
+                <Card
+                  key={`pct-${i}`}
+                  sx={{
+                    background:
+                      "linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(139, 92, 246, 0.15) 100%)",
+                    border: "1px solid rgba(99, 102, 241, 0.3)",
+                    borderRadius: 2,
+                  }}
+                >
+                  <CardContent
                     sx={{
-                      color: "white",
-                      fontWeight: 600,
-                      fontSize: "1.1rem",
+                      p: 2,
+                      textAlign: "center",
+                      "&:last-child": { pb: 2 },
                     }}
                   >
-                    % labeled <em>real</em>
-                  </Typography>
-                </Box>
-                <Box sx={{ display: "flex", gap: 2, flex: 1 }}>
-                  {items.map((item, index) => (
-                    <Box key={`percentage-${index}`} sx={{ flex: 1 }}>
-                      <Card
-                        sx={{
-                          background:
-                            "linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(139, 92, 246, 0.15) 100%)",
-                          border: "1px solid rgba(99, 102, 241, 0.3)",
-                          borderRadius: 2,
-                        }}
-                      >
-                        <CardContent
-                          sx={{
-                            p: 2,
-                            textAlign: "center",
-                            "&:last-child": { pb: 2 },
-                          }}
-                        >
-                          <Typography
-                            sx={{
-                              color:
-                                parseFloat(item.percentage) > 50
-                                  ? "#22c55e"
-                                  : parseFloat(item.percentage) > 30
-                                  ? "#f97316"
-                                  : "#ef4444",
-                              fontWeight: 700,
-                              fontSize: "1.2rem",
-                            }}
-                          >
-                            {item.percentage}
-                          </Typography>
-                        </CardContent>
-                      </Card>
-                    </Box>
-                  ))}
-                </Box>
-              </Box>
-            </Grid>
-          </Grid>
+                    <Typography
+                      sx={{
+                        color,
+                        fontWeight: 700,
+                        fontSize: "1.2rem",
+                      }}
+                    >
+                      {item.percentage}
+                    </Typography>
+                  </CardContent>
+                </Card>
+              );
+            })}
+          </Box>
         </Box>
 
         {caption && (

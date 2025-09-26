@@ -64,9 +64,13 @@ const Projects: React.FC = () => {
           </Typography>
         </Box>
 
-        <Grid container spacing={4} sx={{ alignItems: "stretch" }}>
+        <Grid container spacing={4}>
           {projects.map((project) => (
-            <Grid key={project.id} sx={{ xs: 12, md: 6 }}>
+            <Grid
+              key={project.id}
+              size={{ xs: 12, md: 6 }}
+              sx={{ minWidth: 0 }}
+            >
               <ProjectCard project={project} />
             </Grid>
           ))}

@@ -10,8 +10,8 @@ export const mrnaExpressionProject: Project = {
   abstract:
     "This master's thesis presents a comprehensive implementation and investigation of mRNA expression prediction using deep learning techniques. The research encompasses implementing and evaluating prior work (Xpresso and TExCNN models), developing novel architectures that achieve competitive performance, and extending these approaches to non-human species. The work demonstrates that combining DNABERT-2 transformer embeddings with biological metadata can explain nearly 80% of variance in human gene expression, outperforming previous approaches while requiring less computational resources.",
   githubUrl: "https://github.com/AFWAhab/Masters-Thesis/",
-  startDate: "2024-01-01",
-  endDate: "2025-01-31",
+  startDate: "2025-01-01",
+  endDate: "2025-06-30",
   status: "completed",
   tags: [
     "Deep Learning",
