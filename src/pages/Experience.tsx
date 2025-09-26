@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Box,
   Typography,
@@ -74,15 +74,18 @@ const Experience: React.FC = () => {
     >
       <Container maxWidth="xl">
         <Button
+          component={Link}
+          to="/"
           startIcon={<ArrowBackIcon />}
-          onClick={() => navigate("/")}
           sx={{
             color: "white",
             border: "1px solid rgba(99, 102, 241, 0.3)",
             mb: 4,
+            textDecoration: "none",
             "&:hover": {
               backgroundColor: "rgba(99, 102, 241, 0.1)",
               borderColor: "rgba(99, 102, 241, 0.5)",
+              textDecoration: "none",
             },
           }}
         >

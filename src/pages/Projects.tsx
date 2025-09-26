@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Typography, Container, Grid, Button } from "@mui/material";
 import { ArrowBack as ArrowBackIcon } from "@mui/icons-material";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ProjectCard from "../components/ProjectCard";
 import { projects } from "../data/projects";
 
@@ -19,21 +19,23 @@ const Projects: React.FC = () => {
     >
       <Container maxWidth="xl">
         <Button
+          component={Link}
+          to="/"
           startIcon={<ArrowBackIcon />}
-          onClick={() => navigate("/")}
           sx={{
             color: "white",
             border: "1px solid rgba(99, 102, 241, 0.3)",
             mb: 4,
+            textDecoration: "none",
             "&:hover": {
               backgroundColor: "rgba(99, 102, 241, 0.1)",
               borderColor: "rgba(99, 102, 241, 0.5)",
+              textDecoration: "none",
             },
           }}
         >
           back to home
         </Button>
-
         <Box sx={{ textAlign: "center", mb: 6 }}>
           <Typography
             variant="h1"

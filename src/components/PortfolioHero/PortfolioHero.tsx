@@ -19,7 +19,7 @@ import {
   getWindTrailStyles,
   getWindBurstStyles,
 } from "./styles";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ContactModal from "../ContactModal/ContactModal";
 
 const ping = keyframes`
@@ -148,11 +148,7 @@ const PortfolioHero: React.FC = () => {
     { x: 215, y: 200 },
   ];
 
-  const allPoints = [
-    ...facePoints,
-    ...glassesPoints,
-    ...smilePoints,
-  ];
+  const allPoints = [...facePoints, ...glassesPoints, ...smilePoints];
 
   useEffect(() => {
     if (faceComplete) {
@@ -210,9 +206,7 @@ const PortfolioHero: React.FC = () => {
         const isActive = !faceComplete && index === animationPhase;
 
         // Determine if this is a smile point
-        const isSmilePoint =
-          index >=
-          facePoints.length + glassesPoints.length;
+        const isSmilePoint = index >= facePoints.length + glassesPoints.length;
 
         return (
           <circle
@@ -242,14 +236,10 @@ const PortfolioHero: React.FC = () => {
         const prevPoint = allPoints[index - 1];
 
         // Don't connect smile to beard
-        const isSmileStart =
-          index ===
-          facePoints.length + glassesPoints.length;
+        const isSmileStart = index === facePoints.length + glassesPoints.length;
         if (isSmileStart) return null;
 
-        const isSmilePoint =
-          index >=
-          facePoints.length + glassesPoints.length;
+        const isSmilePoint = index >= facePoints.length + glassesPoints.length;
 
         return (
           <line
@@ -343,14 +333,17 @@ const PortfolioHero: React.FC = () => {
 
             <Box sx={getButtonsContainerStyles(showDescription)}>
               <Button
+                component={Link}
+                to="/projects"
                 variant="contained"
                 size="large"
                 sx={primaryButtonStyles}
-                onClick={() => navigate("/projects")}
               >
                 view my work
               </Button>
               <Button
+                component={Link}
+                to="/experience"
                 variant="contained"
                 size="large"
                 sx={{
@@ -365,7 +358,6 @@ const PortfolioHero: React.FC = () => {
                     transform: "scale(1.05)",
                   },
                 }}
-                onClick={() => navigate("/experience")}
               >
                 my experience
               </Button>

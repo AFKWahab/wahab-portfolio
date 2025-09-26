@@ -9,6 +9,7 @@ import {
   Chip,
 } from "@mui/material";
 import { GitHub as GitHubIcon } from "@mui/icons-material";
+import { Link } from "react-router-dom";
 import { Project } from "../../types/project";
 
 interface ProjectCardProps {
@@ -24,6 +25,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
 
   const handleGitHubClick = (e: React.MouseEvent) => {
     e.stopPropagation();
+    e.preventDefault();
     if (project.githubUrl) {
       window.open(project.githubUrl, "_blank");
     }
@@ -70,7 +72,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
 
   return (
     <Card
-      onClick={handleCardClick}
+      component={Link}
+      to={`/projects/${project.id}`}
       sx={{
         background:
           "linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%)",
@@ -80,6 +83,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
         height: "100%",
         display: "flex",
         flexDirection: "column",
+        textDecoration: "none", // Remove link underline
+        color: "inherit", // Inherit text color
         cursor: "pointer",
         transition: "all 0.3s ease",
         "&:hover": {
@@ -88,9 +93,14 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
           background:
             "linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(139, 92, 246, 0.15) 100%)",
           boxShadow: "0 20px 40px rgba(99, 102, 241, 0.2)",
+          textDecoration: "none", // Ensure no underline on hover
+        },
+        "&:visited": {
+          color: "inherit", // Prevent visited link color change
         },
       }}
     >
+      {/* Rest of the card content remains the same */}
       <CardContent
         sx={{ p: 3, flex: 1, display: "flex", flexDirection: "column" }}
       >
