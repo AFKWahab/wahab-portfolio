@@ -15,7 +15,7 @@ export const experiences: ExperienceItem[] = [
     position: "Software Developer",
     company: "Vis Commodities",
     startDate: "2024-11",
-    endDate: "2025-10",
+    endDate: "2025-11",
     description:
       "Full-stack development & DevOps role focusing on ETL pipelines, cloud infrastructure, and analytics tools. Built comprehensive Azure-based solutions including Kubernetes clusters.",
     technologies: [
@@ -25,9 +25,10 @@ export const experiences: ExperienceItem[] = [
       "Kubernetes",
       "Docker",
       "TimescaleDB",
+      "PostgreSQL",
     ],
     achievements: [
-      "Setup ETL pipelines with Kubernetes, Helm, Dagster, and TimescaleDB on Azure",
+      "Setup ETL pipelines with Kubernetes, Helm, Dagster, and TimescaleDB (PostgreSQL) on Azure",
       "Managing our AKS cluster, including setting up CI/CD pipelines, and setting up pipelines for other developers to deploy onto the cluster",
       "Created trading analytics tool using React & Python, deployed through Azure webapps & functions",
       "Implemented energy market data scrapers for various european data providers",

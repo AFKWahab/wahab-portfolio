@@ -47,11 +47,24 @@ interface Point {
   y: number;
 }
 
+// Global state to persist animation
+let globalAnimationState = {
+  isComplete: false,
+  showText: false,
+  showDescription: false,
+};
+
 const PortfolioHero: React.FC = () => {
-  const [animationPhase, setAnimationPhase] = useState(0);
-  const [faceComplete, setFaceComplete] = useState(false);
-  const [showText, setShowText] = useState(false);
-  const [showDescription, setShowDescription] = useState(false);
+  const [animationPhase, setAnimationPhase] = useState(
+    globalAnimationState.isComplete ? 99999 : 0
+  );
+  const [faceComplete, setFaceComplete] = useState(
+    globalAnimationState.isComplete
+  );
+  const [showText, setShowText] = useState(globalAnimationState.showText);
+  const [showDescription, setShowDescription] = useState(
+    globalAnimationState.showDescription
+  );
   const [contactModalOpen, setContactModalOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -125,31 +138,49 @@ const PortfolioHero: React.FC = () => {
     { x: 220, y: 140 },
   ];
 
-  const beardPoints: Point[] = [
-    { x: 167, y: 220 },
-    { x: 170, y: 230 },
-    { x: 175, y: 240 },
-    { x: 182, y: 248 },
-    { x: 190, y: 254 },
-    { x: 200, y: 258 },
-    { x: 210, y: 258 },
-    { x: 220, y: 254 },
-    { x: 228, y: 248 },
-    { x: 235, y: 240 },
-    { x: 240, y: 230 },
-    { x: 243, y: 220 },
+  const smilePoints: Point[] = [
+    { x: 185, y: 200 },
+    { x: 190, y: 205 },
+    { x: 195, y: 208 },
+    { x: 200, y: 210 },
+    { x: 205, y: 208 },
+    { x: 210, y: 205 },
+    { x: 215, y: 200 },
   ];
 
-  const allPoints = [...facePoints, ...glassesPoints, ...beardPoints];
+  const allPoints = [
+    ...facePoints,
+    ...glassesPoints,
+    ...smilePoints,
+  ];
+
   useEffect(() => {
-    if (faceComplete) return;
+    if (faceComplete) {
+      // Update global state
+      globalAnimationState = {
+        isComplete: true,
+        showText: true,
+        showDescription: true,
+      };
+      return;
+    }
 
     const timer = setInterval(() => {
       setAnimationPhase((prev) => {
         if (prev + 1 >= allPoints.length) {
           setFaceComplete(true);
-          setTimeout(() => setShowText(true), 300);
-          setTimeout(() => setShowDescription(true), 1500);
+          globalAnimationState.isComplete = true;
+
+          setTimeout(() => {
+            setShowText(true);
+            globalAnimationState.showText = true;
+          }, 300);
+
+          setTimeout(() => {
+            setShowDescription(true);
+            globalAnimationState.showDescription = true;
+          }, 1500);
+
           return allPoints.length - 1;
         }
         return prev + 1;
@@ -178,20 +209,27 @@ const PortfolioHero: React.FC = () => {
         const isVisible = index <= animationPhase;
         const isActive = !faceComplete && index === animationPhase;
 
+        // Determine if this is a smile point
+        const isSmilePoint =
+          index >=
+          facePoints.length + glassesPoints.length;
+
         return (
           <circle
             key={index}
             cx={point.x}
             cy={point.y}
             r={isActive ? 4 : 2}
-            fill={isActive ? "#fbbf24" : "#6366f1"}
+            fill={isActive ? "#fbbf24" : isSmilePoint ? "#22c55e" : "#6366f1"}
             opacity={isVisible ? 1 : 0}
             style={{
               transition: "all 0.2s ease-in-out",
               filter: isActive
                 ? "drop-shadow(0 0 8px #fbbf24)"
                 : faceComplete
-                ? "drop-shadow(0 0 4px #8b5cf6)"
+                ? isSmilePoint
+                  ? "drop-shadow(0 0 4px #22c55e)"
+                  : "drop-shadow(0 0 4px #8b5cf6)"
                 : "none",
               animation: isActive ? `${pulse} 1s ease-in-out infinite` : "none",
             }}
@@ -202,6 +240,17 @@ const PortfolioHero: React.FC = () => {
       {allPoints.map((point, index) => {
         if (index === 0 || index > animationPhase) return null;
         const prevPoint = allPoints[index - 1];
+
+        // Don't connect smile to beard
+        const isSmileStart =
+          index ===
+          facePoints.length + glassesPoints.length;
+        if (isSmileStart) return null;
+
+        const isSmilePoint =
+          index >=
+          facePoints.length + glassesPoints.length;
+
         return (
           <line
             key={`line-${index}`}
@@ -209,7 +258,7 @@ const PortfolioHero: React.FC = () => {
             y1={prevPoint.y}
             x2={point.x}
             y2={point.y}
-            stroke="#6366f1"
+            stroke={isSmilePoint ? "#22c55e" : "#6366f1"}
             strokeWidth="1"
             opacity="0.3"
             style={{
