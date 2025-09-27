@@ -1,13 +1,11 @@
 import React from "react";
 import { Box, Typography, Container, Grid, Button } from "@mui/material";
 import { ArrowBack as ArrowBackIcon } from "@mui/icons-material";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import ProjectCard from "../components/ProjectCard";
 import { projects } from "../data/projects";
 
 const Projects: React.FC = () => {
-  const navigate = useNavigate();
-
   return (
     <Box
       sx={{

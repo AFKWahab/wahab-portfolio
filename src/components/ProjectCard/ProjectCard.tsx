@@ -1,5 +1,4 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import {
   Card,
   CardContent,
@@ -17,12 +16,6 @@ interface ProjectCardProps {
 }
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
-  const navigate = useNavigate();
-
-  const handleCardClick = () => {
-    navigate(`/projects/${project.id}`);
-  };
-
   const handleGitHubClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     e.preventDefault();
@@ -83,8 +76,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
         height: "100%",
         display: "flex",
         flexDirection: "column",
-        textDecoration: "none", // Remove link underline
-        color: "inherit", // Inherit text color
+        textDecoration: "none",
+        color: "inherit",
         cursor: "pointer",
         transition: "all 0.3s ease",
         "&:hover": {
@@ -93,10 +86,10 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
           background:
             "linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(139, 92, 246, 0.15) 100%)",
           boxShadow: "0 20px 40px rgba(99, 102, 241, 0.2)",
-          textDecoration: "none", // Ensure no underline on hover
+          textDecoration: "none",
         },
         "&:visited": {
-          color: "inherit", // Prevent visited link color change
+          color: "inherit",
         },
       }}
     >

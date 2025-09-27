@@ -19,7 +19,7 @@ import {
   getWindTrailStyles,
   getWindBurstStyles,
 } from "./styles";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import ContactModal from "../ContactModal/ContactModal";
 
 const ping = keyframes`
@@ -47,7 +47,6 @@ interface Point {
   y: number;
 }
 
-// Global state to persist animation
 let globalAnimationState = {
   isComplete: false,
   showText: false,
@@ -66,8 +65,6 @@ const PortfolioHero: React.FC = () => {
     globalAnimationState.showDescription
   );
   const [contactModalOpen, setContactModalOpen] = useState(false);
-  const navigate = useNavigate();
-
   const facePoints: Point[] = [
     { x: 200, y: 80 },
     { x: 190, y: 85 },
@@ -203,8 +200,6 @@ const PortfolioHero: React.FC = () => {
       {allPoints.map((point, index) => {
         const isVisible = index <= animationPhase;
         const isActive = !faceComplete && index === animationPhase;
-
-        // Determine if this is a smile point
         const isSmilePoint = index >= facePoints.length + glassesPoints.length;
 
         return (
@@ -233,8 +228,6 @@ const PortfolioHero: React.FC = () => {
       {allPoints.map((point, index) => {
         if (index === 0 || index > animationPhase) return null;
         const prevPoint = allPoints[index - 1];
-
-        // Don't connect smile to beard
         const isSmileStart = index === facePoints.length + glassesPoints.length;
         if (isSmileStart) return null;
 

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   Box,
   Typography,
@@ -20,7 +20,6 @@ import {
 import { experiences, ExperienceItem } from "../data/experience";
 
 const Experience: React.FC = () => {
-  const navigate = useNavigate();
   const [selectedExperience, setSelectedExperience] = useState<ExperienceItem>(
     experiences[0]
   );

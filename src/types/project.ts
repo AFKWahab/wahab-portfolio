@@ -1,4 +1,3 @@
-// types/project.ts
 export interface Project {
   id: string;
   title: string;
@@ -9,8 +8,6 @@ export interface Project {
   endDate?: string;
   keyFeatures: string[];
   status: "completed" | "ongoing" | "planned";
-
-  // New detailed content fields
   abstract?: string;
   sections?: ProjectSection[];
   tags?: string[];
@@ -31,25 +28,12 @@ export interface ProjectSection {
 }
 
 export interface SectionContent {
-  // Text content with optional math
   text?: string;
-
-  // Math equations (LaTeX strings)
   equations?: MathEquation[];
-
-  // Images with captions
   images?: ProjectImage[];
-
-  // Code blocks
   code?: CodeBlock[];
-
-  // Results/metrics
   metrics?: Metric[];
-
-  // Sub-sections for complex sections
   subsections?: SubSection[];
-
-  // Custom visualizations (for LaTeX-generated content)
   customVisualizations?: CustomVisualization[];
 }
 
@@ -58,12 +42,12 @@ export interface MathEquation {
   latex: string;
   label?: string;
   description?: string;
-  displayMode?: boolean; // true for block equations, false for inline
+  displayMode?: boolean;
 }
 
 export interface ProjectImage {
   id: string;
-  src: string; // path to image
+  src: string;
   alt: string;
   caption?: string;
   width?: string;
@@ -106,10 +90,9 @@ export interface CustomVisualization {
     | "learning-curves"
     | "model-comparison"
     | "custom";
-  data: any; // Flexible data structure for different visualization types
+  data: any;
 }
 
-// Specific interfaces for the new visualization types
 export interface BenchmarkSequence {
   id: string;
   length: number;
