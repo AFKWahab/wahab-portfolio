@@ -1,10 +1,8 @@
-name: Build and Deploy React App to Simply.com
+name: Build and Deploy React App
 
-# Trigger the workflow on push to main branch
 on:
   push:
     branches: [ main ]
-  # Allow manual triggering from GitHub UI
   workflow_dispatch:
 
 jobs:
@@ -19,24 +17,23 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
-          cache: 'npm'
+          node-version: '20'
+          cache: 'yarn'
 
       - name: Install dependencies
-        run: npm ci
+        run: yarn install --frozen-lockfile
 
       - name: Build React app
-        run: npm run build
+        run: yarn build
         env:
-          # Add any environment variables your build needs
           CI: false
 
-      - name: Deploy to Simply.com
-        uses: rasmusbuchholdt/simply-web-deploy@2.2.0
+      - name: Deploy using custom action
+        uses: ./.github/actions/web-deploy
         with:
           website-name: ${{ secrets.WEBSITE_NAME }}
           server-computer-name: ${{ secrets.SERVER_COMPUTER_NAME }}
           server-username: ${{ secrets.SERVER_USERNAME }}
           server-password: ${{ secrets.SERVER_PASSWORD }}
           source-path: '\build\'
-          target-delete: true  # This deletes old files, good for React apps
+          target-delete: true
