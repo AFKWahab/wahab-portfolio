@@ -1,4 +1,4 @@
-name: Deploy Pre-built React App
+name: Deploy to Simply.com via FTP
 
 on:
   push:
@@ -8,18 +8,21 @@ on:
 jobs:
   deploy:
     name: Deploy to Simply.com
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Deploy pre-built files
-        uses: ./.github/actions/web-deploy
+      - name: Deploy via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          website-name: ${{ secrets.WEBSITE_NAME }}
-          server-computer-name: ${{ secrets.SERVER_COMPUTER_NAME }}
-          server-username: ${{ secrets.SERVER_USERNAME }}
-          server-password: ${{ secrets.SERVER_PASSWORD }}
-          source-path: '\build\'
-          target-delete: true
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./build/
+          server-dir: ${{ secrets.FTP_FOLDER }}
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
