@@ -1,2 +1,1 @@
-export { default } from './ProjectSectionRenderer';
-
+export { default } from "./ProjectSectionRenderer";

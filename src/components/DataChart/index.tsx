@@ -1,1 +1,1 @@
-export { default } from './DataChart';
+export { default } from "./DataChart";

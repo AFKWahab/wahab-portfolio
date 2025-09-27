@@ -1,1 +1,1 @@
-export { default } from './BenchmarkTable';
+export { default } from "./BenchmarkTable";

@@ -1,2 +1,1 @@
-export { default } from './HistogramChart';
-
+export { default } from "./HistogramChart";

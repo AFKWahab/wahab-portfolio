@@ -1,1 +1,1 @@
-export { default } from './LearningCurves';
+export { default } from "./LearningCurves";
