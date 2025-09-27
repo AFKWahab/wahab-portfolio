@@ -16,11 +16,7 @@ export const proteinFoldingProject: Project = {
   tags: [
     "Bioinformatics",
     "Algorithms",
-    "C++",
     "OpenGL",
-    "Protein Folding",
-    "Approximation Algorithms",
-    "Ant Colony Optimization",
   ],
   category: "bioinformatics",
   showTableOfContents: true,

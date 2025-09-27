@@ -14,7 +14,7 @@ export const vaeGanProject: Project = {
   startDate: "2024-09-01",
   endDate: "2025-01-01",
   status: "completed",
-  tags: ["Machine Learning", "Computer Vision", "GANs", "VAE", "Deep Learning"],
+  tags: ["Deep Learning", "Computer Vision"],
   category: "machine-learning",
   keyFeatures: [
     "VAE-GAN hybrid architecture for image colorization",
