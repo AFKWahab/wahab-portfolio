@@ -152,7 +152,6 @@ const PortfolioHero: React.FC = () => {
 
   useEffect(() => {
     if (faceComplete) {
-      // Update global state
       globalAnimationState = {
         isComplete: true,
         showText: true,
