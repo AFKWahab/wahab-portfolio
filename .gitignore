@@ -8,8 +8,8 @@
 # testing
 /coverage
 
-# production
-/build
+# production - i removed build because github actions is crazy slow, and for a personal project, i can basically build this locally and deploy it through actions.
+#/build
 
 # misc
 .DS_Store

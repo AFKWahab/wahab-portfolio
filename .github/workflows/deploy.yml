@@ -1,4 +1,4 @@
-name: Build and Deploy React App
+name: Deploy Pre-built React App
 
 on:
   push:
@@ -6,29 +6,15 @@ on:
   workflow_dispatch:
 
 jobs:
-  build_and_deploy:
-    name: Build and Deploy to Simply.com
+  deploy:
+    name: Deploy to Simply.com
     runs-on: windows-latest
     
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'yarn'
-
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile
-
-      - name: Build React app
-        run: yarn build
-        env:
-          CI: false
-
-      - name: Deploy using custom action
+      - name: Deploy pre-built files
         uses: ./.github/actions/web-deploy
         with:
           website-name: ${{ secrets.WEBSITE_NAME }}
