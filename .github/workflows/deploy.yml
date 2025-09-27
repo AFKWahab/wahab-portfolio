@@ -22,6 +22,8 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./build/
           server-dir: ${{ secrets.FTP_FOLDER }}
+          timeout: 60000
+          log-level: verbose
           exclude: |
             **/.git*
             **/.git*/**
