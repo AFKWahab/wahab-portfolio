@@ -319,8 +319,7 @@ const PortfolioHero: React.FC = () => {
             <Typography variant="body1" sx={descriptionStyles}>
               i'm a 24 year old software developer based in denmark. I have a
               great personal interest in computer graphics, computer vision and
-              bioinformatics. currently working as a software developer at
-              qiagen.
+              bioinformatics.
             </Typography>
 
             <Box sx={getButtonsContainerStyles(showDescription)}>
